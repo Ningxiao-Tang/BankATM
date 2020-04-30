@@ -1,7 +1,9 @@
+<<<<<<< HEAD
 // abstract class representing a type of currency
 public abstract class Currency {
 	private String type;
-	private float value;
+	private double value;
+	private char symbol;
 
 	public Currency() {
 		// noarg
@@ -11,7 +13,7 @@ public abstract class Currency {
 		return type;
 	}
 
-	public float getValue() {
+	public double getValue() {
 		return value;
 	}
 
@@ -28,12 +30,16 @@ public abstract class Currency {
 	protected abstract EURO convertToEURO();
 	protected abstract RMB convertToRMB();
 
-	public void add(float amt) {
+	public void add(double amt) {
 		this.value += amt;
 	}
 
-	public void subtract(float amt) {
+	public void subtract(double amt) {
 		this.value -= amt;
+	}
+
+	public void setValue(double amt) {
+		this.value = amt;
 	}
 
 	public <T extends Currency> boolean equals(T currency) {
