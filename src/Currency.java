@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // abstract class representing a type of currency
 public abstract class Currency {
 	private String type;
