@@ -2,22 +2,12 @@ import java.util.ArrayList;
 
 public class Customer extends User {
 
-    private String name;
-    private String password;
-    private String address;
-    private String email;
-    private int id;
     private ArrayList<CheckingAccounts> checkingAccounts= new ArrayList<CheckingAccount>();
     private ArrayList<SavingAccounts> savingAccounts= new ArrayList<SavingAccounts>();
     private ArrayList<StockAccounts> stockAccount= new ArrayList<StockAccount>();
 
     public Customer(String name, String password, String email, String address) {
-    	this.name = name;
-    	this.password = password;
-    	this.email = email;
-    	this.address = address;
-    	this.id = Manager.getCustomers().size() + 1;
-
+        super(name, password, email, address);
     	Manager.addCustomer(this);
     }
 
