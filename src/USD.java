@@ -1,6 +1,6 @@
 // class representing an amount of USD
 public class USD extends Currency {
-	public USD(float value) {
+	public USD(double value) {
 		this.type = "usd";
 		this.symbol = '$';
 		this.value = value;
@@ -12,6 +12,6 @@ public class USD extends Currency {
 		// todo complete
 	}
 	protected RMB convertToRMB() {
-		// tdoo complete
+		// todo complete
 	}
 }

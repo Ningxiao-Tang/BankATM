@@ -2,6 +2,8 @@ public class Loan {
     private int id;
     private double amount;
     private double interest;
+    private String collateral;
+    // private boolean approved ?
 
     public Loan (int id, double amount, double interest) {
         this.id = id;
