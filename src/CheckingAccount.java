@@ -1,7 +1,7 @@
 // class representing a customer Checking Account
 public class CheckingAccount {
 
-	public static transactionFee = 10; // set by bank manager
+	public static double transactionFee = 10; // set by bank manager
 	public CheckingAccount() {
 
 	}
