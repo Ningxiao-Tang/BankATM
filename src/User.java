@@ -3,13 +3,15 @@ public class User {
 		Class that represents the types of users that can be made within the bank
 
 	*/
-	protected String name;
+	protected String firstName;
+	protected String lastName;
 	protected String email;
 	protected String username;
 	protected String password;
 
-	public User(String name, String email, String username, String password) {
-		this.name = name;
+	public User(String firstName, String lastName, String email, String username, String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
     	this.password = password;
     	this.email = email;
     	this.address = address;
