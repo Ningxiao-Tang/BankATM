@@ -18,7 +18,7 @@ public class User {
 	}
 
 	public boolean login(String username, String password) {
-		return username.equals(this.username) && password.equals(this.password)
+		return username.equals(this.username) && password.equals(this.password);
 	}
 
 	public void logout() {}
