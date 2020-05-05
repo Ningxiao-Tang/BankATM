@@ -3,8 +3,6 @@ package Database;
 
 import java.sql.*;
 
-import src.*;
-
 // TODO take out commented code
 public class BankData {
 
@@ -43,7 +41,7 @@ public class BankData {
 			System.out.println(e);
 		}
 	}
-	
+	/*
 	// INSERT new entries into database
 
 	// inserts each new customer into the database
@@ -97,7 +95,7 @@ public class BankData {
     }
 
 
-    // SELECT / reading elements from database 
+    // SELECT / reading elements from database
 
     // get list of customers (for Bank Manager use)
     public List<Customer> readCustomers(){
@@ -338,14 +336,15 @@ public class BankData {
         String cmd = "DELETE FROM bank_atm.transaction";
         execute(cmd);
     }
-
+    */
 
     // helpers for reading/writing to database
 
     private ResultSet getRsFromCmd(String cmd) {
-        try {
-            Statement stmt=con.createStatement();
-            ResultSet rs = stmt.executeQuery(cmd);
+        ResultSet rs = null;
+	    try {
+            Statement stmt=conn.createStatement();
+            rs = stmt.executeQuery(cmd);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -354,7 +353,7 @@ public class BankData {
 
     private void execute(String sql){
         try {
-            Statement stmt = con.createStatement();
+            Statement stmt = conn.createStatement();
             stmt.execute(sql);
         }
         catch(Exception e){ System.out.println(e);}
