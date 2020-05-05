@@ -24,8 +24,8 @@ public class Customer extends User {
     }
 	
 	public void makeInvestmentAccount() {
-		StockAccount acc = new StockAccount();
-		this.stockAccounts.add(acc);
+		SecurityAccount acc = new SecurityAccount();
+		this.securityAccounts.add(acc);
         BankATM.db.addCheckingAccount(this, acc);
 	}  	
 

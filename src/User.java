@@ -1,8 +1,9 @@
-public class User {
-	/*
-		Class that represents the types of users that can be made within the bank
+/*
+	Class that represents the types of users that can be made within the bank
+*/
 
-	*/
+public class User {
+
 	protected String firstName;
 	protected String lastName;
 	protected String email;
@@ -38,6 +39,8 @@ public class User {
 		return username.equals(this.username) && password.equals(this.password);
 	}
 
-	public void logout() {}
+	public void logout() {
+		System.out.println("not yet implemented");
+	}
 
 }

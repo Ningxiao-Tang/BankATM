@@ -1,4 +1,7 @@
-// class representing a customer Checking Account
+/*
+Class representing a customer Checking Account
+*/
+
 public class CheckingAccount {
 
 	public static double transactionFee; // set by bank manager
