@@ -82,8 +82,10 @@ public class BankData {
 
     // inserts new stock available (controlled by Bank Manager)
     public void addStock(Stock stock){
-        // todo complete according to table
-        String cmd = "INSERT INTO bank.stocks (name, price, shares) VALUES (\'";
+        String name = stock.getCode();
+        double price = stock.getPrice();
+        int shares = stock.getShares();
+        String cmd = "INSERT INTO bank.stocks(name, price, shares) VALUES ('" + name + ", " + price + ", " + shares + ");";
         execute(cmd);
     }
 
@@ -326,12 +328,12 @@ public class BankData {
     }
     public void deleteAccount(){
         // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.account";
+        String cmd = "DELETE FROM bank_atm.customers";
         execute(cmd);
     }
     public void deleteLoan(){
         // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.loan";
+        String cmd = "DELETE FROM bank_atm.loans";
         execute(cmd);
     }
     public void deleteStock(){
@@ -380,9 +382,4 @@ public class BankData {
 	public static void main(String[] args) {
 		new BankData();
 	}
-    */
-    // for testing
-    public static void main(String[] args) {
-        new BankData();
-    }
 }
