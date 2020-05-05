@@ -4,13 +4,15 @@
 
 public abstract class AccountType {
 	
-	private Currency balance;
+	protected Currency balance;
+	protected boolean isActive;
 	public static Currency accountOpenFee; // set by manager
 	public static Currency accountCloseFee; // set by manager
 	public static Currency withdrawlFee; // set by manager
 
 	public AccountType(Currency startingBalance) {
 		this.balance = startingBalance;
+		this.isActive = true;
 	}
 
 	public Currency getBalance() {
@@ -23,5 +25,9 @@ public abstract class AccountType {
 	
 	public void withdraw(Currency value) {
 		balance.subtract(value);
+	}
+
+	public closeAccount() {
+		this.isActive = false;
 	}
 }

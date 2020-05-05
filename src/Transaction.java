@@ -1,3 +1,4 @@
 public class Transaction {
-	// todo complete
+	protected String affectedAmount;
+	protected Currency amt;
 }

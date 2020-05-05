@@ -12,20 +12,20 @@ public class Customer extends User {
     	Manager.addCustomer(this);
     }
 
-    public void makeCheckingAccount() {
-    	CheckingAccount acc = new CheckingAccount();
+    public void makeCheckingAccount(Currency c) {
+    	CheckingAccount acc = new CheckingAccount(c);
     	this.checkingAccounts.add(acc);
         BankData.addCheckingAccount(this, acc);
     }
 
-    public void makeSavingsAccount() {
-    	SavingAccounts acc = new SavingAccounts();
+    public void makeSavingsAccount(Currency c) {
+    	SavingAccounts acc = new SavingAccounts(c);
     	this.savingsAccounts.add(acc);
         BankData.addCheckingAccount(this, acc);
     }
 	
-	public void makeInvestmentAccount() {
-		SecurityAccount acc = new SecurityAccount();
+	public void makeInvestmentAccount(Currency c) {
+		SecurityAccount acc = new SecurityAccount(c);
 		this.securityAccounts.add(acc);
         BankData.addCheckingAccount(this, acc);
 	}  	

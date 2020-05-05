@@ -2,19 +2,17 @@
 Class representing a customer Checking Account
 */
 
-public class CheckingAccount {
+public class CheckingAccount extends AccountType {
 
 	public static double transactionFee; // set by bank manager
+
 	
-	public CheckingAccount() {
-
+	public CheckingAccount(Currency c) {
+		super(c);
 	}
 
-	public CheckingAccount openAccount() {
-		// todo complete
+	public int getBalanceInLocalCurrency() {
+		this.balance.getValue();
 	}
-
-	public  void closeAccount() {
-		// todo complete
-	}
+	
 }

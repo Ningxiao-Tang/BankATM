@@ -4,11 +4,15 @@ The SecurityAccount class represents a stock invesstment account that will be he
 
 import Database.BankData;
 
-public class SecurityAccount {
+public class SecurityAccount extends AccountType {
 
 	private Currency realizedProfits;
 	private Currency unrealizedProfits;
 	private List<Stock> boughtStocks = BankData.readStocksFor(this);
+	
+	public SecurityAccount(Currency c) {
+		super(c);
+	}
 
 	public List<Stock> viewStockOptions() {
 		return BankData.readStocks();

@@ -29,7 +29,9 @@ public class Manager extends User {
 		this.customers.add(c);
 	}
 
-	public static void changeStockValue(Stock s) {
+	public static void changeStockValue(Stock s, double newPrice) {
+		s.setPrice(newPrice);
+		BankData.updateStock(s);
 
 	}
 
