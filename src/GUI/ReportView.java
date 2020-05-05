@@ -2,19 +2,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-public class CustomerInfoView extends JFrame {
-   // public BankData bank;
+public class ReportView extends JFrame {
 
-    public CustomerInfoView() {
-//        ArrayList<Customer> customers = bank.readCustomers();
-//        for (Customer c : customers){
-//            JTextField nameField = new JTextField().setText(customer.getName());
-//            JTextField accTypeField = new JTextField().setText(customer.)
-//        }
+    public ReportView() {
+
         initComponent();
-
     }
 
     private void initComponent() {
@@ -34,10 +27,13 @@ public class CustomerInfoView extends JFrame {
         buttonPanel.add(okBtn);
         jp.add(buttonPanel,BorderLayout.PAGE_END);
         this.add(jp);
+
+
         int width = 600;
         int height = 400;
-        this.setTitle("Customer Info");
+        this.setTitle("Daily Report");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setSize(width, height);
     }
+
 }

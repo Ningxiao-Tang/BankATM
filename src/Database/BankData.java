@@ -1,10 +1,8 @@
 // class which connects to our MySQL database
 package Database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+
 // TODO take out commented code
 public class BankData {
 
@@ -43,8 +41,8 @@ public class BankData {
 			System.out.println(e);
 		}
 	}
-	
-	// INSERT new entires into database
+	/*
+	// INSERT new entries into database
 
 	// inserts each new customer into the database
 	public void addCustomer(Customer customer){
@@ -97,7 +95,7 @@ public class BankData {
     }
 
 
-    // SELECT / reading elements from database 
+    // SELECT / reading elements from database
 
     // get list of customers (for Bank Manager use)
     public List<Customer> readCustomers(){
@@ -284,7 +282,7 @@ public class BankData {
     public void updateCheckingAccount(CheckingAccount checkingAccount){
     	// TODO fix according to table and object constructor
         String cmd = "UPDATE bank.account SET balance = \'" + checkingAccount.getBalanceInLocalCurrency() +  "\', active = "+ checkingAccount.isActive() + " , open_fee = \'" + checkingAccount.getOpeningCharge() +"\', close_fee = \'" + checkingAccount.getClosingCharge() +"\', transaction_fee = \'" + checkingAccount.getTransferFee() + "\', " +
-                "withdrrawal_fee = \'"+ checkingAccount.getWithdrawalFee() +"\' WHERE (acc_num = \' "+ checkingAccount.getAccountNumber()+" \' AND routing_num = \'"+ checkingAccount.getAccountNumber()+ " \');\n";
+                "withdrawal_fee = \'"+ checkingAccount.getWithdrawalFee() +"\' WHERE (acc_num = \' "+ checkingAccount.getAccountNumber()+" \' AND routing_num = \'"+ checkingAccount.getAccountNumber()+ " \');\n";
         execute(cmd);
     }
 
@@ -338,19 +336,24 @@ public class BankData {
         String cmd = "DELETE FROM bank_atm.transaction";
         execute(cmd);
     }
-
+    */
 
     // helpers for reading/writing to database
 
     private ResultSet getRsFromCmd(String cmd) {
-    	Statement stmt=con.createStatement();
-        ResultSet rs=stmt.executeQuery(cmd);
+        ResultSet rs = null;
+	    try {
+            Statement stmt=conn.createStatement();
+            rs = stmt.executeQuery(cmd);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return rs;
     }
 
     private void execute(String sql){
         try {
-            Statement stmt = con.createStatement();
+            Statement stmt = conn.createStatement();
             stmt.execute(sql);
         }
         catch(Exception e){ System.out.println(e);}

@@ -9,12 +9,12 @@ public class CreateAccountMenu extends JDialog {
 
     public CreateAccountMenu(JFrame parent, boolean model ) { //also need to pass bankdata,
         super(parent,model);
-        initComponets(this);
+        initComponents(this);
         setLocationRelativeTo(parent);
         //this.bank = bank;
     }
 
-    private void initComponets(JDialog parent) {
+    private void initComponents(JDialog parent) {
         JDialog parentComponent = parent;
         JLabel depositLabel = new JLabel("Initial Deposit:");
         JTextField depositField = new JTextField(20);
