@@ -7,7 +7,7 @@ public class Manager extends User {
 	*/
 
 	private static List<Customer> customers =  BankData.readCustomers();
-	private static List<Stock> stocks = new Arraylist<Stock>();
+	private static List<Stock> stocks = BankData.readStocks();
 
 
 	public static Arraylist<Customer> getAllCustomers() {
@@ -35,8 +35,8 @@ public class Manager extends User {
 
 	}
 
-	public static String getDailyReport(){
+	public static List<Transaction> getDailyReport(){
 		//  returns a daily report on transactions for that day.
-		return "Nothing too important going on at the moment";
+		return BankData.readTransactions();
 	}
 }

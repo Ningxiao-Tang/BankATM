@@ -1,4 +1,9 @@
 public class Transaction {
-	protected String affectedAmount;
 	protected Currency amt;
+	protected AccountType account;
+
+	public Transaction(Currency amount, AccountType acc) {
+		this.amt = amount;
+		this.account = acc;
+	}
 }

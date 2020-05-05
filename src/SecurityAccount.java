@@ -1,7 +1,7 @@
 /*
 The SecurityAccount class represents a stock invesstment account that will be held by a customer.
 */
-
+import java.util.List;
 import Database.BankData;
 
 public class SecurityAccount extends AccountType {

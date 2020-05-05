@@ -1,7 +1,6 @@
 /*
 	Abstract class that represents any type of account that can hold money for a customer
 */
-
 public abstract class AccountType {
 	
 	protected Currency balance;
@@ -20,14 +19,18 @@ public abstract class AccountType {
 	}
 	
 	public void deposit(Currency value) {
-		balance.add(value);
+		new Deposit(value, this);
 	}
 	
 	public void withdraw(Currency value) {
-		balance.subtract(value);
+		new Withdraw(value, this);
 	}
 
-	public closeAccount() {
+	public void transfer(Currency value, AccountType toAccount) {
+		new Transfer(value, this, toAccount);
+	}
+
+	public void closeAccount() {
 		this.isActive = false;
 	}
 }
