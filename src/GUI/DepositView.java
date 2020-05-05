@@ -42,7 +42,7 @@ public class DepositView extends JDialog {
                     warnings.append("Deposit amount is required.\n");
                 } else {
                     double amount = 0;
-                    String currency = "";
+                    String currency = currencyOptions.getSelectedItem().toString();
                     //Verify the deposit is a positive number
                     try {
                         amount = Double.parseDouble(amountField.getText());
@@ -50,13 +50,13 @@ public class DepositView extends JDialog {
                         if (result == JOptionPane.OK_OPTION) {
                             try {
                                 //Make the deposit
-                                if (currencyOptions.getSelectedItem().toString() == "USD"){
+                                if ( currency == "USD"){
 
                                 }
-                                if (currencyOptions.getSelectedItem().toString() == "RMB"){
+                                if (currency == "RMB"){
 
                                 }
-                                else if (currencyOptions.getSelectedItem().toString() == "EUR"){
+                                else if (currency == "EUR"){
 
                                 }
                                 dispose();

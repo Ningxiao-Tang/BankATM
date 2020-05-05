@@ -10,8 +10,8 @@ public class WithdrawView extends JDialog {
 //    private Bank bank;
 
 
-    public WithdrawView(JFrame parent, boolean model) {
-        super(parent,model);
+    public WithdrawView(JFrame parent, boolean modal) {
+        super(parent,modal);
         initComponets(this);
         setLocationRelativeTo(parent);
     }
@@ -27,7 +27,7 @@ public class WithdrawView extends JDialog {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setTitle("Withdrawal Menu");
 
-        JPanel jp = new JPanel(new GridLayout(3,3,5,5));
+        JPanel jp = new JPanel(new GridLayout(3,2,5,5));
         jp.add(amountLabel);
         jp.add(amountField);
         jp.add(currencyLabel);
