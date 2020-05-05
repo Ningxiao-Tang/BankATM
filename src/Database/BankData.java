@@ -13,8 +13,6 @@ public class BankData {
 	Connection conn = null;
 	public static int mostRecentID = 0;
 
-    Connection conn = null;
-
     public BankData() {
         // connect to db on creation
         connect();
@@ -50,18 +48,25 @@ public class BankData {
 	// inserts each new customer into the database
 	public void addCustomer(Customer customer) {
         int id = getNewID();
-        int first_name = customer.getFirstName();
-        int last_name = customer.getLastName();
-        int email = customer.getEmail();
-        int password = customer.getPassword();
+        String first_name = customer.getFirstName();
+        String last_name = customer.getLastName();
+        String email = customer.getEmail();
+        String password = customer.getPassword();
         String cmd = "INSERT INTO bank.customers(id, first_name, last_name, email, password) VALUES (" +
                 id + ", '" + first_name + ", " + last_name + ", " + email + ", " + password + ");";
     }
 
     // inserts new accounts
     public void addCheckingAccount(Customer customer, CheckingAccount checkingAccount){
-        // TODO complete according to table
-        String cmd = "INSERT INTO bank.accounts (balance, routing_num, acc_num, active, open_fee, close_fee, transaction_fee, withdrawal_fee, type, person_name, routing_acc) VALUES (\'\')";
+        int acc_num = getNewID();
+        String cust_email = customer.getEmail();
+        double balance = checkingAccount.getBalance().getValue();
+        double acc_open_fee = checkingAccount.accountOpenFee;
+        double acc_closed_fee = checkingAccount.accountClosedFee;
+        double withdrawl_fee = checkingAccount.withdrawlFee;
+        String cmd = "INSERT INTO bank.accounts(acc_num, cust_email, balance, acc_open_fee, acc_closed_fee, withdrawl_fee" +
+                ") VALUES (" + acc_num + ", " + cust_email + ", " + balance + ", " + acc_open_fee + ", " +
+                acc_closed_fee + ", " + withdrawl_fee + ", 'C');";
         execute(cmd);
     }
     public void addSavingAccount(Customer customer, SavingsAccount savingsAccount){
