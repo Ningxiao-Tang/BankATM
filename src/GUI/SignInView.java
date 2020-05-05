@@ -49,10 +49,12 @@ public class SignInView extends JFrame {
                 //TODO: return user instance from BankData
                 if (username.equals("Alice") && password.equals("12345")) {
                     CustomerView customerView = new CustomerView();
+                    customerView.setVisible(true);
                     dispose();
                 }
                 else{
                     ManagerView managerView = new ManagerView();
+                    managerView.setVisible(true);
                     dispose();
                 }
 

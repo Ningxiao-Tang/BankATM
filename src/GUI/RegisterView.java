@@ -1,5 +1,3 @@
-package GUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -62,6 +60,7 @@ public class RegisterView extends JFrame {
                     //Name name = new name(fname, lname);
                     //Customer customer = new Customer(name, email, password);
 
+                dispose();
 
             }
         });
