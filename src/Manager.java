@@ -1,12 +1,13 @@
 import java.util.*;
+import Database.BankData;
 
 public class Manager extends User {
 	/*
 		Class that represents the actions and attributes of the bank manager
 	*/
 
-	private static List<Customer> customers =  BankATM.db.readCustomers();
-	private static Arraylist<Stock> customers = new Arraylist<Stock>();
+	private static List<Customer> customers =  BankData.readCustomers();
+	private static List<Stock> stocks = new Arraylist<Stock>();
 
 
 	public static Arraylist<Customer> getAllCustomers() {
@@ -14,7 +15,7 @@ public class Manager extends User {
 	}
 
 
-	public static Customer getCustomer(String username) {
+	public static Customer getCustomerInfo(String username) {
 		for (Customer c: this.customers) {
 			if (c.username == username) {
 				return c;
@@ -24,11 +25,16 @@ public class Manager extends User {
 	}
 
 	public static void addNewCustomer(Customer c) {
-		BankATM.db.addCustomer(c);
+		BankData.addCustomer(c);
 		this.customers.add(c);
 	}
 
+	public static void changeStockValue(Stock s) {
+
+	}
+
 	public static String getDailyReport(){
+		//  returns a daily report on transactions for that day.
 		return "Nothing too important going on at the moment";
 	}
 }
