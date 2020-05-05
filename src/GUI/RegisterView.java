@@ -1,15 +1,17 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Register extends JFrame {
+public class RegisterView extends JFrame {
     //private BankData bank;
     private JLabel firstName, lastName, jLabel, username, setPassword;
     private JTextField fnameField, lnameField, emailField;
     private JPasswordField passwordField;
 
-    public Register() { //pass BankData to register class
+    public RegisterView() { //pass BankData to register class
         //this.bank = bank
         int width = 600;
         int height = 400;

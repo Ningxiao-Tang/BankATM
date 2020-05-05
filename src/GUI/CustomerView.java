@@ -1,3 +1,5 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,7 +13,7 @@ public class CustomerView extends JFrame {
     //private ArrayList<Transactions> transactions;
 
     public CustomerView() {
-        //pass customer, transactions to CustomerView
+        //pass customer, transactions to GUI.CustomerView
 //        this.customer = customer;
 //        this.transactions = transactions;
         initComponents();

@@ -1,3 +1,5 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -41,7 +43,7 @@ public class LoginMenu extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //display register frame
-                Register register = new Register();
+                RegisterView register = new RegisterView();
             }
         });
 
