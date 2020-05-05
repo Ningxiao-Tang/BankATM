@@ -7,7 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class CustomerView extends JFrame {
-    private JButton createAccBtn , depositBnt, withdrawBtn, transferBtn, buyStockBtn, sellStockBtn, historyBtn,logOutBtn ;
+    private JButton createAccBtn , depositBnt, withdrawBtn, transferBtn, loanBtn, buyStockBtn, sellStockBtn, historyBtn,logOutBtn ;
 
     //private Customer customer;
     //private ArrayList<Transactions> transactions;
@@ -27,6 +27,7 @@ public class CustomerView extends JFrame {
         depositBnt = new JButton("Deposit");
         withdrawBtn = new JButton("Withdraw");
         transferBtn = new JButton("Transfer");
+        loanBtn = new JButton("Loan");
         buyStockBtn = new JButton("Buy Stock");
         sellStockBtn = new JButton("Sell Stock");
         historyBtn = new JButton("Transactions");
@@ -39,6 +40,7 @@ public class CustomerView extends JFrame {
         buttonPanel.add(depositBnt);
         buttonPanel.add(withdrawBtn);
         buttonPanel.add(transferBtn);
+        buttonPanel.add(loanBtn);
         buttonPanel.add(buyStockBtn);
         buttonPanel.add(sellStockBtn);
         buttonPanel.add(historyBtn);
@@ -115,6 +117,14 @@ public class CustomerView extends JFrame {
             }
         });
 
+        loanBtn.setEnabled(false);
+        loanBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loanBtnActionPerformed();
+            }
+        });
+
         buyStockBtn.setEnabled(false);
         buyStockBtn.addActionListener(new ActionListener() {
             @Override
@@ -140,6 +150,8 @@ public class CustomerView extends JFrame {
 
     }
 
+
+
     private void accountTableMouseClicked(MouseEvent e) {
 
     }
@@ -149,14 +161,22 @@ public class CustomerView extends JFrame {
 
     private void buyStockBtnActionPerformed() {
     }
+    private void loanBtnActionPerformed() {
+        LoanView loanView = new LoanView();
+        //loanView.setVisible(true);
+    }
 
     private void transferBtnActionPerformed() {
     }
 
     private void withdrawBtnActionPerformed() {
+        WithdrawView wView = new WithdrawView(this, true);
+        wView.setVisible(true);
     }
 
     private void depositBntActionPerformed() {
+        DepositView dView = new DepositView(this,true);
+        dView.setVisible(true);
 
     }
 
@@ -185,6 +205,7 @@ public class CustomerView extends JFrame {
         depositBnt.setEnabled(active);
         withdrawBtn.setEnabled(active);
         transferBtn.setEnabled(active);
+        loanBtn.setEnabled(active);
         buyStockBtn.setEnabled(active);
         sellStockBtn.setEnabled(active);
     }
