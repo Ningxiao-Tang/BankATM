@@ -8,7 +8,7 @@ public class Stock {
         this.price = price;
         this.shares = shares;
     }
-    public String getCodede(){
+    public String getCode(){
         return code;
     }
     public double getPrice(){
