@@ -13,8 +13,6 @@ public class BankData {
 	Connection conn = null;
 	public static int mostRecentID = 0;
 
-    Connection conn = null;
-
     public BankData() {
         // connect to db on creation
         connect();
@@ -50,35 +48,44 @@ public class BankData {
 	// inserts each new customer into the database
 	public void addCustomer(Customer customer) {
         int id = getNewID();
-        int first_name = customer.getFirstName();
-        int last_name = customer.getLastName();
-        int email = customer.getEmail();
-        int password = customer.getPassword();
+        String first_name = customer.getFirstName();
+        String last_name = customer.getLastName();
+        String email = customer.getEmail();
+        String password = customer.getPassword();
         String cmd = "INSERT INTO bank.customers(id, first_name, last_name, email, password) VALUES (" +
-                id + ", '" + first_name + ", " + last_name + ", " + email + ", " + password + ");";
+                id + ", '" + first_name + "', '" + last_name + "', '" + email + "', '" + password + "');";
     }
 
     // inserts new accounts
-    public void addCheckingAccount(Customer customer, CheckingAccount checkingAccount){
-        // TODO complete according to table
-        String cmd = "INSERT INTO bank.accounts (balance, routing_num, acc_num, active, open_fee, close_fee, transaction_fee, withdrawal_fee, type, person_name, routing_acc) VALUES (\'\')";
+    private <T extends AccountType> void addAccount(Customer customer, T acct, String acctType) {
+        int acc_num = getNewID();
+        String cust_email = customer.getEmail();
+        double balance = T.getBalance().getValue();
+        double acc_open_fee = T.accountOpenFee;
+        double acc_closed_fee = T.accountClosedFee;
+        double withdrawl_fee = T.withdrawlFee;
+        String cmd = "INSERT INTO bank.accounts(acc_num, cust_email, balance, acc_open_fee, acc_closed_fee, withdrawl_fee" +
+                ") VALUES (" + acc_num + ", '" + cust_email + "', " + balance + ", " + acc_open_fee + ", " +
+                acc_closed_fee + ", " + withdrawl_fee + ", '" + acctType + "');";
         execute(cmd);
+    }
+    public void addCheckingAccount(Customer customer, CheckingAccount checkingAccount){
+        addAccount(customer, checkingAccount, "C");
     }
     public void addSavingAccount(Customer customer, SavingsAccount savingsAccount){
-        // todo complete according to table
-        String cmd = "INSERT INTO bank.accounts (balance, routing_num, acc_num, active, open_fee, close_fee, interest, type, person_name, routing_acc) VALUES (\'";
-        execute(cmd);
+        addAccount(customer, savingsAccount, "S");
     }
     public void addSecurityAccount(Customer customer, SecurityAccount securityAccount){
-        // todo complete according to table
-        String cmd = "INSERT INTO bank.accounts (balance, routing_num, acc_num, active, open_fee, close_fee, type, person_name, routing_acc) VALUES (\'" ;
-        execute(cmd);
+        // todo fix according to stock info
+        addAccount(customer, securityAccount, "A");
     }
 
     // inserts new stock available (controlled by Bank Manager)
     public void addStock(Stock stock){
-        // todo complete according to table
-        String cmd = "INSERT INTO bank.stocks (name, price, total_shares, avai_shares) VALUES (\'";
+        String name = stock.getCode();
+        double price = stock.getPrice();
+        int shares = stock.getShares();
+        String cmd = "INSERT INTO bank.stocks(name, price, shares) VALUES ('" + name + ", " + price + ", " + shares + ");";
         execute(cmd);
     }
 
@@ -321,12 +328,12 @@ public class BankData {
     }
     public void deleteAccount(){
         // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.account";
+        String cmd = "DELETE FROM bank_atm.customers";
         execute(cmd);
     }
     public void deleteLoan(){
         // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.loan";
+        String cmd = "DELETE FROM bank_atm.loans";
         execute(cmd);
     }
     public void deleteStock(){
@@ -375,9 +382,4 @@ public class BankData {
 	public static void main(String[] args) {
 		new BankData();
 	}
-    */
-    // for testing
-    public static void main(String[] args) {
-        new BankData();
-    }
 }

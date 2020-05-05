@@ -14,7 +14,7 @@ public class Stock {
     public double getPrice(){
         return price;
     }
-    public int getShare(){
+    public int getShares(){
         return shares;
     }
     public void setPrice(double d) {
