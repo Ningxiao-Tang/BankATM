@@ -17,20 +17,22 @@ public class BankData {
 		connect();
 	}
 
-	public void connect() {
-		try {
-			// Get connection to DB
-			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/bank";
-			// Create statement
-            conn=DriverManager.getConnection(url);
+    public void connect() {
+        try {
+            // Get connection to DB
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/bank";
+            String username = "admin";
+            String pass = "admin";
+            // Create statement
+            conn=DriverManager.getConnection(url, username, pass);
             // execute sql
             String cmd = "SELECT * FROM customers";
             ResultSet rs = getRsFromCmd(cmd);
             while(rs.next())
                 System.out.println(rs.getString("last_name") + ", " + rs.getString("first_name"));
         }catch(Exception e){ System.out.println(e);}
-	}
+    }
 
 	public void closeConnection() {
 		try {
