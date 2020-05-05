@@ -17,6 +17,23 @@ public class User {
     	this.address = address;
 	}
 
+	/* Getters of customer attributes */
+	public String getFirstName() {
+    	return firstName;
+    }
+
+	public String getLastName() {
+    	return lastName;
+    }
+
+    public String getEmail() {
+    	return email;
+    }
+
+    public String getUsername() {
+    	return username;
+    }
+
 	public boolean login(String username, String password) {
 		return username.equals(this.username) && password.equals(this.password);
 	}

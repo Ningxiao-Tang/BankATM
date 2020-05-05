@@ -2,47 +2,43 @@ import java.util.ArrayList;
 
 public class Customer extends User {
 
-    private ArrayList<CheckingAccounts> checkingAccounts= new ArrayList<CheckingAccount>();
-    private ArrayList<SavingAccounts> savingAccounts= new ArrayList<SavingAccounts>();
-    private ArrayList<StockAccounts> stockAccount= new ArrayList<StockAccount>();
+    private List<CheckingAccounts> checkingAccounts = readSavingAccounts(this);
+    private List<SavingsAccount> savingsAccounts = readSavingAccounts(this);
+    private List<SecurityAccount> securityAccounts = readSecurityAccounts(this);
 
     public Customer(String name, String password, String email, String address) {
         super(name, password, email, address);
     	Manager.addCustomer(this);
     }
 
-    /* Getters of customer attributes */
-    public String getName() {
-    	return name;
-    }
-
-    public String getAddress() {
-    	return address;
-    }
-
-    public String getEmail() {
-    	return email;
-    }
-
-    public int getId() {
-    	return id;
-    }
-    /* end of getters */
-
     public void makeCheckingAccount() {
     	CheckingAccount acc = new CheckingAccount();
     	this.checkingAccounts.add(acc);
+        BankATM.db.addCheckingAccount(this, acc);
     }
 
     public void makeSavingsAccount() {
     	SavingAccounts acc = new SavingAccounts();
-    	this.savingAccounts.add(acc);
+    	this.savingsAccounts.add(acc);
+        BankATM.db.addCheckingAccount(this, acc);
     }
 	
 	public void makeInvestmentAccount() {
 		StockAccount acc = new StockAccount();
-		this.stockAccount.add(acc);
-
+		this.stockAccounts.add(acc);
+        BankATM.db.addCheckingAccount(this, acc);
 	}  	
+
+    public List<CheckingAccount> getCheckingAccounts() {
+        return this.checkingAccounts;
+    }
+
+    public List<SavingsAccount> getSavingAccounts() {
+        return this.savingAccounts;   
+    }
+    
+    public List<SecurityAccount> getStockAccounts() {
+        return this.securityAccounts;   
+    }
 
 }

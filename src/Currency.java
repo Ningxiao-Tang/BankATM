@@ -8,8 +8,9 @@ public class Currency {
 	private double value;
 	private char symbol;
 
-	public Currency(CurrencyType type) {
+	public Currency(CurrencyType type, double value) {
 		this.type = type;
+		this.value = value;
 		switch (this.type) {
 			case USD:
 				this.symbol = '$';
