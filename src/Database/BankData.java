@@ -53,37 +53,37 @@ public class BankData {
         String email = customer.getEmail();
         String password = customer.getPassword();
         String cmd = "INSERT INTO bank.customers(id, first_name, last_name, email, password) VALUES (" +
-                id + ", '" + first_name + ", " + last_name + ", " + email + ", " + password + ");";
+                id + ", '" + first_name + "', '" + last_name + "', '" + email + "', '" + password + "');";
     }
 
     // inserts new accounts
-    public void addCheckingAccount(Customer customer, CheckingAccount checkingAccount){
+    private <T extends AccountType> void addAccount(Customer customer, T acct, String acctType) {
         int acc_num = getNewID();
         String cust_email = customer.getEmail();
-        double balance = checkingAccount.getBalance().getValue();
-        double acc_open_fee = checkingAccount.accountOpenFee;
-        double acc_closed_fee = checkingAccount.accountClosedFee;
-        double withdrawl_fee = checkingAccount.withdrawlFee;
+        double balance = T.getBalance().getValue();
+        double acc_open_fee = T.accountOpenFee;
+        double acc_closed_fee = T.accountClosedFee;
+        double withdrawl_fee = T.withdrawlFee;
         String cmd = "INSERT INTO bank.accounts(acc_num, cust_email, balance, acc_open_fee, acc_closed_fee, withdrawl_fee" +
-                ") VALUES (" + acc_num + ", " + cust_email + ", " + balance + ", " + acc_open_fee + ", " +
-                acc_closed_fee + ", " + withdrawl_fee + ", 'C');";
+                ") VALUES (" + acc_num + ", '" + cust_email + "', " + balance + ", " + acc_open_fee + ", " +
+                acc_closed_fee + ", " + withdrawl_fee + ", '" + acctType + "');";
         execute(cmd);
+    }
+    public void addCheckingAccount(Customer customer, CheckingAccount checkingAccount){
+        addAccount(customer, checkingAccount, "C");
     }
     public void addSavingAccount(Customer customer, SavingsAccount savingsAccount){
-        // todo complete according to table
-        String cmd = "INSERT INTO bank.accounts (balance, routing_num, acc_num, active, open_fee, close_fee, interest, type, person_name, routing_acc) VALUES (\'";
-        execute(cmd);
+        addAccount(customer, savingsAccount, "S");
     }
     public void addSecurityAccount(Customer customer, SecurityAccount securityAccount){
-        // todo complete according to table
-        String cmd = "INSERT INTO bank.accounts (balance, routing_num, acc_num, active, open_fee, close_fee, type, person_name, routing_acc) VALUES (\'" ;
-        execute(cmd);
+        // todo fix according to stock info
+        addAccount(customer, securityAccount, "A");
     }
 
     // inserts new stock available (controlled by Bank Manager)
     public void addStock(Stock stock){
         // todo complete according to table
-        String cmd = "INSERT INTO bank.stocks (name, price, total_shares, avai_shares) VALUES (\'";
+        String cmd = "INSERT INTO bank.stocks (name, price, shares) VALUES (\'";
         execute(cmd);
     }
 
