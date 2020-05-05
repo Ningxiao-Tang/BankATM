@@ -1,6 +1,5 @@
-package GUI;
-
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,38 +7,44 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class CustomerView extends JFrame {
+    private JButton createAccBtn , depositBnt, withdrawBtn, transferBtn, loanBtn, buyStockBtn, sellStockBtn, historyBtn,logOutBtn ;
 
     //private Customer customer;
     //private ArrayList<Transactions> transactions;
+    JTable accountTable = new JTable();
+    private final DefaultTableModel model;
 
     public CustomerView() {
-        //pass customer, transactions to GUI.CustomerView
+        //pass customer, transactions to CustomerView
 //        this.customer = customer;
 //        this.transactions = transactions;
         initComponents();
+        model = (DefaultTableModel) accountTable.getModel();
     }
 
     private void initComponents() {
-        JButton createAccBtn = new JButton("Create Account");
-        JButton depositBnt = new JButton("Deposit");
-        JButton withdrawBtn = new JButton("Withdraw");
-        JButton transferBtn = new JButton("Transfer");
-        JButton buyStockBtn = new JButton("Buy Stock");
-        JButton sellStockBtn = new JButton("Sell Stock");
-        JButton historyBtn = new JButton("Transactions");
-        JButton logOutBtn = new JButton("Log Out");
+        createAccBtn = new JButton("Create Account");
+        depositBnt = new JButton("Deposit");
+        withdrawBtn = new JButton("Withdraw");
+        transferBtn = new JButton("Transfer");
+        loanBtn = new JButton("Loan");
+        buyStockBtn = new JButton("Buy Stock");
+        sellStockBtn = new JButton("Sell Stock");
+        historyBtn = new JButton("Transactions");
+        logOutBtn = new JButton("Log Out");
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.Y_AXIS));
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder (5,5,0,5));
+        buttonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        buttonPanel.add(Box.createVerticalStrut(20));
         buttonPanel.add(createAccBtn);
         buttonPanel.add(depositBnt);
         buttonPanel.add(withdrawBtn);
         buttonPanel.add(transferBtn);
+        buttonPanel.add(loanBtn);
         buttonPanel.add(buyStockBtn);
         buttonPanel.add(sellStockBtn);
         buttonPanel.add(historyBtn);
         buttonPanel.add(Box.createRigidArea(new Dimension(15,15)));
-
         buttonPanel.add(logOutBtn);
         JPanel jp = new JPanel();
         jp.setLayout(new BoxLayout(jp, BoxLayout.X_AXIS));
@@ -47,6 +52,24 @@ public class CustomerView extends JFrame {
         jp.add(buttonPanel);
         //jp.add(accountTable);
         this.add(jp);
+
+
+        //TODO: initialize account table of the customer, display customer's accounts
+        String[] columnNames = {"Account Number", "Balance ($)","Balance (￥)","Balance (€)"};
+//        int dataSize = customer.getCheckingAccount().getAccount().size();
+//        String[][] data = new String[dataSize][3];
+//        for(int i = 0; i < dataSize; i++) {
+//            data[i][0] = balance in $
+//            data[i][1] =
+//            data[i][2] =
+//        }
+        accountTable.setModel(new DefaultTableModel());
+        String [][] data = new String[][]{{"Alice","2000","50.45","0.00"}, {"Bob","50","0","0"}};
+        accountTable = new JTable(data, columnNames);
+        JScrollPane scrollPane = new JScrollPane(accountTable);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        accountTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         int width = 600;
         int height = 400;
         this.setTitle("Bank ATM");
@@ -54,19 +77,6 @@ public class CustomerView extends JFrame {
         this.setSize(width, height);
         this.setVisible(true);
 
-        //TODO: initialize account table of the customer
-        String[] title = {"Currency", "Balance"};
-//        int dataSize = customer.getCheckingAccount().getAccount().size();
-//        String[][] data = new String[dataSize][2];
-//        for(int i = 0; i < dataSize; i++) {
-//            data[i][0] = tableCurrencyName.get(i);
-//            data[i][1] = customer.getCheckingAccount().getBalanceByKey(data[i][0]);
-//        }
-        //accountTable = new JTable(title, data);
-        JTable accountTable = new JTable();
-        JScrollPane scrollPane = new JScrollPane(accountTable);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        accountTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         accountTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -107,6 +117,14 @@ public class CustomerView extends JFrame {
             }
         });
 
+        loanBtn.setEnabled(false);
+        loanBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loanBtnActionPerformed();
+            }
+        });
+
         buyStockBtn.setEnabled(false);
         buyStockBtn.addActionListener(new ActionListener() {
             @Override
@@ -132,7 +150,10 @@ public class CustomerView extends JFrame {
 
     }
 
+
+
     private void accountTableMouseClicked(MouseEvent e) {
+
     }
 
     private void sellStockBtnActionPerformed() {
@@ -140,18 +161,53 @@ public class CustomerView extends JFrame {
 
     private void buyStockBtnActionPerformed() {
     }
+    private void loanBtnActionPerformed() {
+        LoanView loanView = new LoanView();
+        //loanView.setVisible(true);
+    }
 
     private void transferBtnActionPerformed() {
     }
 
     private void withdrawBtnActionPerformed() {
+        WithdrawView wView = new WithdrawView(this, true);
+        wView.setVisible(true);
     }
 
     private void depositBntActionPerformed() {
+        DepositView dView = new DepositView(this,true);
+        dView.setVisible(true);
+
     }
 
     private void createAccBtnActionPerformed() {
+        setAccountButtonsActive(true);
+        CreateAccountMenu menu = new CreateAccountMenu(this,true);
+        menu.setVisible(true);
+        //TODO: add created account to account table
+//        if (menu.getCustomer() != null) {
+//            addCustomerToTable(menu.getCustomer());
+//        }
     }
 
+//    private void addCustomerToTable(Customer customer) {
+//        model.addRow(new Object[]{});
+//        reloadCustomerRowData(model.getRowCount() - 1, customer.getAccount().getAccountNumber());
+//    }
+//
+//    private void reloadCustomerRowData(int selectedRow, int accountId) {
+//        Customer customer = bank.getCustomer(accountId);
+//        model.setValueAt(customer.getName(), selectedRow, 0);
+//        model.setValueAt(String.format("%.2f", customer.getAccount().getBalance()), selectedRow, 1);
+//    }
+
+    private void setAccountButtonsActive(boolean active) {
+        depositBnt.setEnabled(active);
+        withdrawBtn.setEnabled(active);
+        transferBtn.setEnabled(active);
+        loanBtn.setEnabled(active);
+        buyStockBtn.setEnabled(active);
+        sellStockBtn.setEnabled(active);
+    }
 
 }
