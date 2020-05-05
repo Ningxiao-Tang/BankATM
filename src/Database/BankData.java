@@ -11,6 +11,7 @@ public class BankData {
 	// https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-connect-drivermanager.html
 
 	Connection conn = null;
+	public static int mostRecentID = 0;
 
 	public BankData() {
 		// connect to db on creation
@@ -34,19 +35,25 @@ public class BankData {
         }catch(Exception e){ System.out.println(e);}
     }
 
-	public void closeConnection() {
+	public void close() {
 		try {
 			conn.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
-	/*
+
 	// INSERT new entries into database
 
 	// inserts each new customer into the database
 	public void addCustomer(Customer customer){
-        String cmd = "INSERT INTO bank.users (name) VALUES (\'"+ customerAccount.getPerson().getName().getFirstName() + " "+ customerAccount.getPerson().getName().getLastName()+ "\');";
+	    int id = getNewID();
+	    int first_name = customer.getFirstName();
+	    int last_name = customer.getLastName();
+	    int email = customer.getEmail();
+	    int password = customer.getPassword();
+        String cmd = "INSERT INTO bank.customers(id, first_name, last_name, email, password) VALUES (" +
+                id + ", '" + first_name + ", " + last_name + ", " + email + ", " + password + ");";
         execute(cmd);
     }
 
@@ -336,7 +343,6 @@ public class BankData {
         String cmd = "DELETE FROM bank_atm.transaction";
         execute(cmd);
     }
-    */
 
     // helpers for reading/writing to database
 
@@ -359,12 +365,18 @@ public class BankData {
         catch(Exception e){ System.out.println(e);}
     }
 
+    public static int getNewID() {
+	    mostRecentID++;
+	    return mostRecentID;
+    }
 
 
 
 
+    /*
 	// for testing
 	public static void main(String[] args) {
 		new BankData();
 	}
+    */
 }

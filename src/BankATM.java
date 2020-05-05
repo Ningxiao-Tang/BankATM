@@ -1,6 +1,6 @@
 public class BankATM {
 
-	public static BankData db = new BankData();
+	public static Database.BankData db = new Database.BankData();
 
 	public static void start() {
 

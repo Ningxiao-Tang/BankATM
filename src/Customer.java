@@ -1,13 +1,14 @@
-import java.util.ArrayList;
+import java.util.List;
+import Database.BankData;
 
 public class Customer extends User {
 
-    private List<CheckingAccounts> checkingAccounts = readSavingAccounts(this);
+    private List<CheckingAccount> checkingAccounts = BankData.readSavingAccounts(this);
     private List<SavingsAccount> savingsAccounts = readSavingAccounts(this);
     private List<SecurityAccount> securityAccounts = readSecurityAccounts(this);
 
-    public Customer(String name, String password, String email, String address) {
-        super(name, password, email, address);
+    public Customer(String firstName, String lastName, String email, String password) {
+        super(firstName, lastName, email, password);
     	Manager.addCustomer(this);
     }
 

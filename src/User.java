@@ -6,21 +6,17 @@ public class User {
 	protected String firstName;
 	protected String lastName;
 	protected String email;
-	protected String username;
 	protected String password;
 
-	public User(String firstName, String lastName, String email, String username, String password) {
+	public User(String firstName, String lastName, String email, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
     	this.password = password;
     	this.email = email;
-    	this.address = address;
 	}
 
 	/* Getters of customer attributes */
-	public String getFirstName() {
-    	return firstName;
-    }
+	public String getFirstName() {	return firstName; }
 
 	public String getLastName() {
     	return lastName;
@@ -30,12 +26,12 @@ public class User {
     	return email;
     }
 
-    public String getUsername() {
-    	return username;
-    }
+    public String getPassword() { return password; }
 
-	public boolean login(String username, String password) {
-		return username.equals(this.username) && password.equals(this.password);
+
+	public boolean login(String email, String password) {
+		boolean ret = (this.email).equals(email) && password.equals(this.password);
+		return ret;
 	}
 
 	public void logout() {}
