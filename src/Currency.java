@@ -1,8 +1,8 @@
-public class Currency {
+/*
+	Class representing of currency, it can hold 3 different currency types (which come from the enum file CurrencyTypes)
+*/
 
-	/*
-		Class representing of currency
-	*/
+public class Currency {
 
 	private CurrencyType type;
 	private double value;
@@ -57,10 +57,6 @@ public class Currency {
 		    	if (this.type == CurrencyType.EURO) { return this.value * 7.84; }
 		}
 	}
-
-	// protected abstract USD convertToUSD(); 
-	// protected abstract EURO convertToEURO();
-	// protected abstract RMB convertToRMB();
 
 	// setters for currency value 
 	public void add(double amt) {
