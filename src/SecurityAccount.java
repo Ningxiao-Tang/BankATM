@@ -2,18 +2,20 @@
 The SecurityAccount class represents a stock invesstment account that will be held by a customer.
 */
 
+import Database.BankData;
+
 public class SecurityAccount {
 
 	private Currency realizedProfits;
 	private Currency unrealizedProfits;
-	private List<Stock> boughtStocks = BankATM.db.readStocksFor(this);
+	private List<Stock> boughtStocks = BankData.readStocksFor(this);
 
 	public List<Stock> viewStockOptions() {
-		return BankATM.db.readStocks();
+		return BankData.readStocks();
 	}
 
 	public void buyStock(Stock stock) {
-		BankATM.db.buyStock(stock, this);
+		BankData.buyStock(stock, this);
 		this.boughtStocks.add(stock);
 	}
 
