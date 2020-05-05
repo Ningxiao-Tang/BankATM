@@ -22,10 +22,8 @@ public class BankData {
 			// Get connection to DB
 			Class.forName("com.mysql.jdbc.Driver");
 			String url = "jdbc:mysql://localhost:3306/bank";
-			String userID = "admin";
-			String pass = "admin";
 			// Create statement
-            conn=DriverManager.getConnection(url, userID, pass);
+            conn=DriverManager.getConnection(url);
             // execute sql
             String cmd = "SELECT * FROM customers";
             ResultSet rs = getRsFromCmd(cmd);
