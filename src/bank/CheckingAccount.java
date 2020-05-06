@@ -1,8 +1,9 @@
-package bank;
-
 /*
 Class representing a customer Checking Account
 */
+
+package bank;
+
 public class CheckingAccount extends AccountType {
 
 	public static double transactionFee; // set by bank manager

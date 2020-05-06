@@ -1,8 +1,8 @@
-package bank;
-
 /*
 	Abstract class that represents any type of account that can hold money for a customer
 */
+package bank;
+
 public abstract class AccountType {
 	
 	protected Currency balance;

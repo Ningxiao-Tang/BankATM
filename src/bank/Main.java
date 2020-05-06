@@ -1,6 +1,7 @@
-package bank;/*
+/*
 	Main class is the driver of this program 
 */
+package bank;
 // import src.GUI.LoginMenu;
 
 import Database.BankData;

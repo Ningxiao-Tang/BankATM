@@ -1,6 +1,8 @@
-package bank;/*
+/*
 The SecurityAccount class represents a stock invesstment account that will be held by a customer.
 */
+
+package bank;
 import java.util.List;
 import Database.BankData;
 

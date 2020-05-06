@@ -1,3 +1,4 @@
+// Subclass of transaction that represents a deposit of money from an ATM
 package bank;
 
 public class Deposit extends Transaction {

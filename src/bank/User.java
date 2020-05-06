@@ -1,7 +1,7 @@
-package bank;
 /*
 	Class that represents the types of users that can be made within the bank
 */
+package bank;
 
 public class User {
 

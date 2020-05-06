@@ -1,9 +1,13 @@
-package bank;
+/*
+A subclaass of User that represents a customer of the bank ATM
+*/
 
+package bank;
 import java.util.List;
 import Database.BankData;
 
 public class Customer extends User {
+
     private BankData db;
     private List<CheckingAccount> checkingAccounts;
     private List<SavingsAccount> savingsAccounts;
@@ -18,7 +22,7 @@ public class Customer extends User {
     }
 
     public void makeCheckingAccount(Currency c) {
-    	CheckingAccount acc = new CheckingAccount(c);
+    	CheckingAccount acc = new CheckingAccount(c, db);
     	this.checkingAccounts.add(acc);
         db.addCheckingAccount(this, acc);
     }
@@ -33,7 +37,7 @@ public class Customer extends User {
 		SecurityAccount acc = new SecurityAccount(c, db);
 		this.securityAccounts.add(acc);
         db.addSecurityAccount(this, acc);
-	}  	
+	}
 
     public List<CheckingAccount> getCheckingAccounts() {
         return this.checkingAccounts;

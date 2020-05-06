@@ -1,4 +1,6 @@
-package bank;/* Enum file representing the currency types */
+/* Enum file representing the currency types */
+
+package bank;
 
 public enum CurrencyType {
     USD,

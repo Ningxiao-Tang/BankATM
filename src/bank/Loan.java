@@ -1,3 +1,4 @@
+/* Class representing the loans of a bank ATM */
 package bank;
 
 public class Loan {

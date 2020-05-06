@@ -1,5 +1,4 @@
-// class that represents a withdrawl from a specific account
-
+// Subclass of transaction that represents a withdrawal of money from an ATM
 package bank;
 
 public class Withdraw extends Transaction {

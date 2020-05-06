@@ -1,12 +1,12 @@
+/*
+Class that represents the actions and attributes of the bank manager
+*/
 package bank;
 
 import java.util.*;
 import Database.BankData;
 
 public class Manager extends User {
-	/*
-		Class that represents the actions and attributes of the bank manager
-	*/
 
 	private List<Customer> customers;
 	private List<Stock> stocks;

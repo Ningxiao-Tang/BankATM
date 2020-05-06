@@ -1,8 +1,8 @@
-package bank;
-
 /*
 	Class representing of currency, it can hold 3 different currency types (which come from the enum file CurrencyTypes)
 */
+
+package bank;
 public class Currency {
 
 	private CurrencyType type;

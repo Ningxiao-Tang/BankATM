@@ -1,0 +1,21 @@
+Design Document
+Date: 5/6/2020
+Team #9
+
+Elyse Kaczmarek
+BU ID: 
+
+Eunice Choi
+BU ID: U75265203
+
+Ningxiao Tang
+BU ID: 
+
+
+Backend/OOD files
+
+
+Database
+
+
+GUI 

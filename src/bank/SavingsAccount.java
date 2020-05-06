@@ -1,10 +1,9 @@
+/*
+	This class represents a customer savings account
+*/
 package bank;
 
 public class SavingsAccount extends AccountType {
-
-	/*
-		This class represents a customer savings account
-	*/
 
 	public static float percentInterest; // set by bank manager
 	
