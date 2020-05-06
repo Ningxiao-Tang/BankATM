@@ -1,22 +1,25 @@
 package GUI;
 
+import bank.Customer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RegisterView extends JFrame {
-    //private BankData bank;
+    private Database.BankData db;
     private JLabel firstName, lastName, jLabel, username, setPassword;
     private JTextField fnameField, lnameField, emailField;
     private JPasswordField passwordField;
 
-    public RegisterView() { //pass BankData to register class
+    public RegisterView(Database.BankData db) { //pass BankData to register class
         //this.bank = bank
         int width = 600;
         int height = 400;
         this.setTitle("Customer Register");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.db = db;
 
         this.setSize(width, height);
         //this.setLayout(null);
@@ -57,10 +60,10 @@ public class RegisterView extends JFrame {
                 String lname = lnameField.getText();
                 String email = emailField.getText();
                 String password = String.valueOf(passwordField.getPassword());
+                Customer customer = new Customer(fname, lname, email, password, db);
+                //db.addCustomer(customer);s
 
-                    //TODO: validate input and instantiate a customer, store info to bankdata;
-                    //Name name = new name(fname, lname);
-                    //Customer customer = new Customer(name, email, password);
+                // todo add salt and hash
 
                 dispose();
 

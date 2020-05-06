@@ -1,17 +1,20 @@
 package GUI;
 
+import Database.BankData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginMenu extends JFrame{
+    private BankData db;
     private JPanel panel;
     private JButton customerSignInButton;
     private JButton customerRegisterButton;
     private JButton managerSignInButton;
 
-    public LoginMenu() {
+    public LoginMenu(BankData db) {
         int width = 600;
         int height = 400;
         this.setTitle("Bank ATM");
@@ -19,6 +22,7 @@ public class LoginMenu extends JFrame{
         this.setVisible(true);
         this.setSize(width, height);
         this.setLayout(new GridBagLayout());
+        this.db = db;
 
 
         customerSignInButton = new JButton("Customer Sign In");
@@ -43,7 +47,7 @@ public class LoginMenu extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //display register frame
-                RegisterView register = new RegisterView();
+                RegisterView register = new RegisterView(db);
             }
         });
 
@@ -66,7 +70,8 @@ public class LoginMenu extends JFrame{
     }
 
     public static void main(String[] args) {
-        new LoginMenu();
+        BankData db = new BankData();
+        new LoginMenu(db);
     }
 
 

@@ -350,12 +350,15 @@ public class BankData {
 	    mostRecentID++;
 	    return mostRecentID;
     }
-    /*
+
 	// for testing
 	public static void main(String[] args) {
-		new BankData();
+        BankData db = new BankData();
+        String cmd = "INSERT INTO bank.customers(id, first_name, last_name, email, password) VALUES (1, 'elyse', 'test'" +
+                ", 'test', 'test');";
+        db.execute(cmd);
 	}
-     */
+
 
 
 }

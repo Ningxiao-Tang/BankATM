@@ -9,6 +9,7 @@ import Database.BankData;
 public class Main {
 
 	public static void main(String[] args){
-		new GUI.LoginMenu();
+		BankData db = new BankData();
+		new GUI.LoginMenu(db);
   }
 }
