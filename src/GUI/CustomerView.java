@@ -20,6 +20,7 @@ public class CustomerView extends JFrame {
 
     private Customer customer;
     private BankData db;
+    private double oldVal;
     //private ArrayList<Transactions> transactions;
     JTable accountTable = new JTable();
     //private final DefaultTableModel model;
@@ -69,30 +70,47 @@ public class CustomerView extends JFrame {
 
         try {
             List<CheckingAccount> checkingAccts = db.readCheckingAccounts(customer);
-            System.out.println(checkingAccts.toString());
             if (checkingAccts.isEmpty()) {
-                data = new String[0][];
+                toAdd = new String[0];
             }
             else {
                 for (CheckingAccount cAcct : checkingAccts) {
                     String acc_num = Integer.toString(cAcct.getAccID());
                     String acc_type = "Checking";
-                    String balanceUSD = Double.toString(cAcct.getBalance().convert(CurrencyType.USD));
-                    String balanceEUR = Double.toString(cAcct.getBalance().convert(CurrencyType.EURO));
-                    String balanceRMB = Double.toString(cAcct.getBalance().convert(CurrencyType.RMB));
+                    String balanceUSD = Double.toString(Math.round(cAcct.getBalance().getValue()* 100.00) / 100.00);
+                    String balanceEUR = Double.toString(Math.round(cAcct.getBalance().getValue()*1.11*100.00)/100.00);
+                    String balanceRMB = Double.toString(Math.round(cAcct.getBalance().getValue()*.14*100.00)/100.00);
+                    oldVal = cAcct.getBalance().getValue();
                     toAdd = new String[]{acc_num, acc_type, balanceUSD, balanceEUR, balanceRMB};
                 }
-                List<SavingsAccount> savingAccts = db.readSavingAccounts(customer);
+            }
+            List<SavingsAccount> savingAccts = db.readSavingAccounts(customer);
+            if (savingAccts.isEmpty()) {
+                toAdd2 = new String[0];
+            }
+            else {
                 for (SavingsAccount sAcct : savingAccts) {
                     String acc_num = Integer.toString(sAcct.getAccID());
                     String acc_type = "Savings";
-                    String balanceUSD = Double.toString(sAcct.getBalance().convert(CurrencyType.USD));
-                    String balanceEUR = Double.toString(sAcct.getBalance().convert(CurrencyType.EURO));
-                    String balanceRMB = Double.toString(sAcct.getBalance().convert(CurrencyType.RMB));
+                    String balanceUSD = Double.toString(Math.round(sAcct.getBalance().getValue()* 100.00) / 100.00);
+                    String balanceEUR = Double.toString(Math.round(sAcct.getBalance().getValue()*1.11*100.00)/100.00);
+                    String balanceRMB = Double.toString(Math.round(sAcct.getBalance().getValue()*.14*100.00)/100.00);
                     toAdd2 = new String[]{acc_num, acc_type, balanceUSD, balanceEUR, balanceRMB};
                 }
+            }
+            if (checkingAccts.isEmpty() && savingAccts.isEmpty()) {
+                data = new String[0][];
+            }
+            else if (checkingAccts.isEmpty()) {
+                data = new String[][]{toAdd2};
+            }
+            else if (savingAccts.isEmpty()) {
+                data = new String[][]{toAdd};
+            }
+            else {
                 data = new String[][]{toAdd, toAdd2};
             }
+
         }
         catch (Exception e) {
             System.out.println(e);
@@ -100,7 +118,7 @@ public class CustomerView extends JFrame {
 
 
 
-        String[] columnNames = {"Account Number", "Account Type","Balance ($)","Balance (￥)","Balance (€)"};
+        String[] columnNames = {"Account Number", "Account Type","Balance ($)","Balance (€)", "Balance (￥)"};
 
         //accountTable.setModel(new DefaultTableModel());
         accountTable = new JTable(data, columnNames);
@@ -236,12 +254,12 @@ public class CustomerView extends JFrame {
     }
 
     private void withdrawBtnActionPerformed() {
-        WithdrawView wView = new WithdrawView(this, true);
+        WithdrawView wView = new WithdrawView(this, true, oldVal, db);
         wView.setVisible(true);
     }
 
     private void depositBntActionPerformed() {
-        DepositView dView = new DepositView(this,true);
+        DepositView dView = new DepositView(this,true, customer, db, oldVal);
         dView.setVisible(true);
 
     }

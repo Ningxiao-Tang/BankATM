@@ -1,5 +1,10 @@
 package GUI;
 
+import Database.BankData;
+import bank.CheckingAccount;
+import bank.Currency;
+import bank.CurrencyType;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,12 +15,17 @@ import java.text.DecimalFormatSymbols;
 public class WithdrawView extends JDialog {
 //    private Customer customer;
 //    private Bank bank;
+    private double oldVal;
+    private BankData db;
 
 
-    public WithdrawView(JFrame parent, boolean modal) {
+
+    public WithdrawView(JFrame parent, boolean modal, double oldVal, BankData db) {
         super(parent,modal);
         initComponets(this);
         setLocationRelativeTo(parent);
+        this.oldVal = oldVal;
+        this.db = db;
     }
 
     private void initComponets(WithdrawView depositView) {
@@ -53,6 +63,7 @@ public class WithdrawView extends JDialog {
                             try {
                                 //Make the withdrawal
                                 //bank.withdraw(customer.getAccount().getAccountNumber(), amount);
+                                /*
                                 if (currencyOptions.getSelectedItem().toString() == "USD"){
 
                                 }
@@ -61,7 +72,9 @@ public class WithdrawView extends JDialog {
                                 }
                                 else if (currencyOptions.getSelectedItem().toString() == "EUR"){
 
-                                }
+                                }*/
+                                CheckingAccount acc = new CheckingAccount(new Currency(CurrencyType.USD, oldVal-amount), db);
+                                db.updateCheckingAccount(acc);
                                 dispose();
                             } catch (Exception ex) {
                                 warnings.append("Insufficient funds to complete transaction.\n");

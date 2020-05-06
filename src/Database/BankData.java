@@ -18,7 +18,6 @@ public class BankData {
     // https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-connect-drivermanager.html
 
 	Connection conn = null;
-	public static int mostRecentID = 0;
 
     public BankData() {
         // connect to db on creation
@@ -66,7 +65,7 @@ public class BankData {
 
     // inserts new accounts
     private <T extends AccountType> void addAccount(Customer customer, T acct, String acctType) {
-        int acc_num = getNewID();
+        int acc_num = acct.getAccID();
         String cust_email = customer.getEmail();
         double balance = acct.getBalance().getValue();
 //        double acc_open_fee = AccountType.accountOpenFee;
@@ -333,7 +332,7 @@ public class BankData {
 
     // when a customer withdraws or deposits from checking or savings (security is handled by updateStockX methods)
     public void updateCheckingAccount(CheckingAccount checkingAccount){
-        String cmd = "UPDATE bank.accounts SET balance = " + checkingAccount.getBalance() + " WHERE acc_num = " +
+        String cmd = "UPDATE bank.accounts SET balance = " + checkingAccount.getBalance().getValue() + " WHERE acc_num = " +
                 checkingAccount.getAccID() + ";";
         execute(cmd);
     }

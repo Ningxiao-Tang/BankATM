@@ -73,6 +73,7 @@ public class CreateAccountMenu extends JDialog {
                         }
                     }
                     if (acctType.equals("Checking")) {
+                        System.out.println(amount);
                         CheckingAccount acct = new CheckingAccount(new Currency(CurrencyType.USD, amount), db);
                         db.addCheckingAccount(customer, acct);
                     }

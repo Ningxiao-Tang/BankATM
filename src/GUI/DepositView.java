@@ -1,5 +1,11 @@
 package GUI;
 
+import Database.BankData;
+import bank.CheckingAccount;
+import bank.Currency;
+import bank.CurrencyType;
+import bank.Customer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,12 +16,18 @@ import java.text.DecimalFormatSymbols;
 public class DepositView extends JDialog {
 //    private Customer customer;
 //    private Bank bank;
+    private BankData db;
+    private Customer customer;
+    private double oldVal;
 
 
-    public DepositView(JFrame parent, boolean model) {
+    public DepositView(JFrame parent, boolean model, Customer customer, BankData db, double oldVal) {
         super(parent,model);
         initComponets(this);
         setLocationRelativeTo(parent);
+        this.db = db;
+        this.customer = customer;
+        this.oldVal = oldVal;
     }
 
     private void initComponets(DepositView depositView) {
@@ -52,6 +64,7 @@ public class DepositView extends JDialog {
                         if (result == JOptionPane.OK_OPTION) {
                             try {
                                 //Make the deposit
+                                /*
                                 if ( currency == "USD"){
 
                                 }
@@ -60,7 +73,10 @@ public class DepositView extends JDialog {
                                 }
                                 else if (currency == "EUR"){
 
-                                }
+                                } */
+
+                                CheckingAccount acc = new CheckingAccount(new Currency(CurrencyType.USD, oldVal+amount), db);
+                                db.updateCheckingAccount(acc);
                                 dispose();
                             } catch (Exception ex) {
                                 warnings.append("Deposit amount is invalid.\n");

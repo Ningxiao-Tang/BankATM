@@ -3,6 +3,8 @@
 */
 package bank;
 
+import java.util.Random;
+
 public abstract class AccountType {
 
 	protected Currency balance;
@@ -18,6 +20,8 @@ public abstract class AccountType {
 		this.balance = startingBalance;
 		this.isActive = true;
 		this.db = db;
+		Random rand = new Random();
+		this.accID = rand.nextInt(100) + 1000;
 	}
 
 	public Currency getBalance() {
