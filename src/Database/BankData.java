@@ -69,12 +69,12 @@ public class BankData {
         int acc_num = getNewID();
         String cust_email = customer.getEmail();
         double balance = acct.getBalance().getValue();
-        double acc_open_fee = AccountType.accountOpenFee;
-        double acc_closed_fee = AccountType.accountClosedFee;
-        double withdrawl_fee = AccountType.withdrawlFee;
-        String cmd = "INSERT INTO bank.accounts(acc_num, cust_email, balance, acc_open_fee, acc_closed_fee, withdrawl_fee" +
-                ") VALUES (" + acc_num + ", '" + cust_email + "', " + balance + ", " + acc_open_fee + ", " +
-                acc_closed_fee + ", " + withdrawl_fee + ", '" + acctType + "');";
+//        double acc_open_fee = AccountType.accountOpenFee;
+//        double acc_closed_fee = AccountType.accountClosedFee;
+//        double withdrawl_fee = AccountType.withdrawlFee;
+        String cmd = "INSERT INTO bank.accounts(acc_num, cust_email, balance, acc_open_fee, acc_closed_fee, withdrawl_fee, " +
+                " acc_type) VALUES (" + acc_num + ", '" + cust_email + "', " + balance + ", " + 1 + ", " +
+                1 + ", " + 1 + ", '" + acctType + "');";
         execute(cmd);
     }
     public void addCheckingAccount(Customer customer, CheckingAccount checkingAccount){
@@ -193,7 +193,6 @@ public class BankData {
             ResultSet rs = getRsFromCmd(cmd);
             CheckingAccount temp;
             while(rs.next()) {
-
                 temp = new CheckingAccount(new Currency(CurrencyType.USD, rs.getDouble("balance")), this);
                 list.add(temp);
             }
@@ -201,6 +200,26 @@ public class BankData {
         catch(Exception e){ System.out.println(e);}
         return list;
     }
+    public Customer getCustomerByEmail(String email) {
+        Customer customer = null;
+        try {
+            String cmd = "SELECT * FROM bank.customers WHERE email = '" + email + "';";
+            ResultSet rs = getRsFromCmd(cmd);
+            String firstName = null;
+            String lastName = null;
+            String password = null;
+            while(rs.next()) {
+                firstName = rs.getString("first_name");
+                lastName = rs.getString("last_name");
+                password = rs.getString("password");
+            }
+            customer = new Customer(firstName, lastName, email, password, this);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return customer;
+    }
+
     // returns list of savings accounts for a particular customer
     public List<SavingsAccount> readSavingAccounts(Customer customer){
         List<SavingsAccount> list = new ArrayList<>();
@@ -307,7 +326,6 @@ public class BankData {
         while(rs.next()) {
             pass = rs.getString("password");
         }
-        System.out.println(rs);
         return pass;
     }
 

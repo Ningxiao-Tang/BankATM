@@ -74,7 +74,7 @@ public class SignInView extends JFrame {
                     System.out.println(encoded);
 
                     if (encoded.equals(realPass)) {
-                        CustomerView customerView = new CustomerView();
+                        CustomerView customerView = new CustomerView(db.getCustomerByEmail(username), db);
                         customerView.setVisible(true);
                         dispose();
                     }

@@ -17,5 +17,9 @@ public class CheckingAccount extends AccountType {
 	public double getBalanceInLocalCurrency() {
 		return this.balance.getValue();
 	}
+
+	public String toString() {
+		return Integer.toString(accID);
+	}
 	
 }

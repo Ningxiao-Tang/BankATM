@@ -1,5 +1,11 @@
 package GUI;
 
+import Database.BankData;
+import bank.CheckingAccount;
+import bank.CurrencyType;
+import bank.Customer;
+import bank.SavingsAccount;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -7,18 +13,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 public class CustomerView extends JFrame {
     private JButton createAccBtn , depositBnt, withdrawBtn, transferBtn, loanBtn, buyStockBtn, sellStockBtn, historyBtn,logOutBtn ;
 
-    //private Customer customer;
+    private Customer customer;
+    private BankData db;
     //private ArrayList<Transactions> transactions;
     JTable accountTable = new JTable();
     //private final DefaultTableModel model;
 
-    public CustomerView() {
+    public CustomerView(Customer customer, BankData db) {
         //pass customer, transactions to CustomerView
-//        this.customer = customer;
+        this.customer = customer;
+        this.db = db;
 //        this.transactions = transactions;
         initComponents();
         //model = (DefaultTableModel) accountTable.getModel();
@@ -53,17 +62,47 @@ public class CustomerView extends JFrame {
 
         jp.add(buttonPanel);
 
-        //TODO: initialize account table of the customer, display customer's accounts
+        //String [][] data = new String[][]{{"100001","Checking","2000","50.45","0.00"}, {"100002","Saving","50","0","0"}};
+        String[] toAdd = null;
+        String[] toAdd2 = null;
+        String[][] data = new String[0][];
+
+        try {
+            List<CheckingAccount> checkingAccts = db.readCheckingAccounts(customer);
+            System.out.println(checkingAccts.toString());
+            if (checkingAccts.isEmpty()) {
+                data = new String[0][];
+            }
+            else {
+                for (CheckingAccount cAcct : checkingAccts) {
+                    String acc_num = Integer.toString(cAcct.getAccID());
+                    String acc_type = "Checking";
+                    String balanceUSD = Double.toString(cAcct.getBalance().convert(CurrencyType.USD));
+                    String balanceEUR = Double.toString(cAcct.getBalance().convert(CurrencyType.EURO));
+                    String balanceRMB = Double.toString(cAcct.getBalance().convert(CurrencyType.RMB));
+                    toAdd = new String[]{acc_num, acc_type, balanceUSD, balanceEUR, balanceRMB};
+                }
+                List<SavingsAccount> savingAccts = db.readSavingAccounts(customer);
+                for (SavingsAccount sAcct : savingAccts) {
+                    String acc_num = Integer.toString(sAcct.getAccID());
+                    String acc_type = "Savings";
+                    String balanceUSD = Double.toString(sAcct.getBalance().convert(CurrencyType.USD));
+                    String balanceEUR = Double.toString(sAcct.getBalance().convert(CurrencyType.EURO));
+                    String balanceRMB = Double.toString(sAcct.getBalance().convert(CurrencyType.RMB));
+                    toAdd2 = new String[]{acc_num, acc_type, balanceUSD, balanceEUR, balanceRMB};
+                }
+                data = new String[][]{toAdd, toAdd2};
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
+
+
+
         String[] columnNames = {"Account Number", "Account Type","Balance ($)","Balance (￥)","Balance (€)"};
-//        int dataSize = customer.getCheckingAccount().getAccount().size();
-//        String[][] data = new String[dataSize][3];
-//        for(int i = 0; i < dataSize; i++) {
-//            data[i][0] = balance in $
-//            data[i][1] =
-//            data[i][2] =
-//        }
+
         //accountTable.setModel(new DefaultTableModel());
-        String [][] data = new String[][]{{"100001","Checking","2000","50.45","0.00"}, {"100002","Saving","50","0","0"}};
         accountTable = new JTable(data, columnNames);
         JScrollPane scrollPane = new JScrollPane(accountTable);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -210,12 +249,8 @@ public class CustomerView extends JFrame {
     private void createAccBtnActionPerformed() {
         //Customer customer = this.getSelectedCustomer();
         //CreateAccountMenu menu = new CreateAccountMenu(this,true,customer);
-        CreateAccountMenu menu = new CreateAccountMenu(this,true);
+        CreateAccountMenu menu = new CreateAccountMenu(this,true, customer, db);
         menu.setVisible(true);
-        //TODO: add created account to account table
-//        if (menu.getCustomer() != null) {
-//            addCustomerToTable(menu.getCustomer());
-//        }
     }
 
 //    private void addCustomerToTable(Customer customer) {
