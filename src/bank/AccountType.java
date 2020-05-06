@@ -28,6 +28,10 @@ public abstract class AccountType {
 		return accID;
 	}
 
+	public char getAccType() {
+		return accType;
+	}
+
 	public void deposit(Currency value) {
 		new Deposit(value, this);
 	}

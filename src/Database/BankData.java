@@ -1,20 +1,12 @@
 // class which connects to our MySQL database
 package Database;
 
-import bank.AccountType;
-import bank.CheckingAccount;
-import bank.Currency;
-import bank.Customer;
-import bank.Loan;
-import bank.SavingsAccount;
-import bank.SecurityAccount;;
-import bank.Stock;
-import bank.Transaction;
+import bank.*;
+;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 // TODO take out commented code
@@ -119,15 +111,21 @@ public class BankData {
     public void addTransaction(Transaction transaction){
 
         int acc_id = transaction.getAccount().getAccID();
-        int acc_type = transaction.getAccount().
+        char acc_type = transaction.getAccount().getAccType();
+        double amt = transaction.getAmt();
 
-        String cmd = "INSERT INTO bank.transactions(acc_id, acc_type, amt, target_id) VALUES (";
+        String cmd = "INSERT INTO bank.transactions(acc_id, acc_type, amt) VALUES (" + acc_id + ", '" + acc_type +
+                "', " + amt + ");";
         execute(cmd);
     }
+
     // add loan to total list of loans (for Bank Manager)
-    public void addLoan(Loan loan, CustomerAccount customerAccount){
-        // todo complete according to table
-        String cmd = " INSERT INTO bank.loans (initial_amount, debt, owner, interest) VALUES (\'";
+    public void addLoan(Loan loan, Customer customer){
+        String cust_email = customer.getEmail();
+        double amt = loan.getAmount();
+        String collateral = loan.getCollateral();
+        String cmd = " INSERT INTO bank.loans (cust_email, amt, collateral) VALUES ('" + cust_email + "', " +
+                amt + ", '" + collateral + "');";
         execute(cmd);
     }
 
@@ -136,16 +134,17 @@ public class BankData {
 
     // get list of customers (for Bank Manager use)
     public List<Customer> readCustomers(){
-        // todo fix according to table
         List<Customer> list = new ArrayList<>();
         try {
             String cmd = "SELECT * FROM bank.customers";
             ResultSet rs = getRsFromCmd(cmd);
             Customer temp;
             while(rs.next()) {
-                String name = rs.getString("name");
-                String[] names = name.split(" ");
-                temp = new Customer(names[0], names[1]);
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                temp = new Customer(firstName, lastName, email, password, this);
                 list.add(temp);
             }
         }
@@ -158,18 +157,18 @@ public class BankData {
         // todo fix according to table
         List<Loan> list = new ArrayList<>();
         try {
-            String cmd = "SELECT * FROM bank.loans WHERE owner = \'"+firstName + " " + lastName+"\'";
+            String cmd = "SELECT * FROM bank.loans WHERE cust_email = '" + customer.getEmail() + "';";
             ResultSet rs = getRsFromCmd(cmd);
             Loan temp;
             while(rs.next()) {
-                temp = new Loan(new Currency("USD"), rs.getFloat("interest"), rs.getFloat("initial_amount"));
+                temp = new Loan(getNewID(), rs.getDouble("amt"), 0.1, rs.getString("collateral"));
                 list.add(temp);
             }
         }
         catch(Exception e){ System.out.println(e);}
         return list;
     }
-    // returns list of all pending loans for all customer (Bank Manager view)
+    // returns list of all pending loans for all customers (Bank Manager view)
     public List<Loan> readLoans(){
         // todo fix according to table
         List<Loan> list = new ArrayList<>();
@@ -178,7 +177,7 @@ public class BankData {
             ResultSet rs = getRsFromCmd(cmd);
             Loan temp;
             while(rs.next()) {
-                temp = new Loan(new Currency("USD"), rs.getFloat("interest"), rs.getFloat("initial_amount"));
+                temp = new Loan(getNewID(), rs.getDouble("amt"), 0.1, rs.getString("collateral"));
                 list.add(temp);
             }
         }
@@ -187,16 +186,14 @@ public class BankData {
     }
     // returns list of checking accounts for a particular customer
     public List<CheckingAccount> readCheckingAccounts(Customer customer){
-        // todo fix according to table
         List<CheckingAccount> list = new ArrayList<>();
         try {
-            String cmd = "SLEECT * FROM account WHERE type = \'C\' AND person_name = \'"+ firstName + " " + lastName+"\'";
+            String cmd = "SELECT * FROM bank.accounts WHERE acc_type = 'C' AND cust_email = '" + customer.getEmail() + "';";
             ResultSet rs = getRsFromCmd(cmd);
             CheckingAccount temp;
             while(rs.next()) {
 
-                temp = new CheckingAccount(rs.getFloat("balance"), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
-                        , rs.getFloat("close_fee"), rs.getFloat("open_fee"), rs.getFloat("transaction_fee"), rs.getFloat("withdrawal_fee"));
+                temp = new CheckingAccount(new Currency(CurrencyType.USD, rs.getDouble("balance")), this);
                 list.add(temp);
             }
         }
@@ -205,16 +202,14 @@ public class BankData {
     }
     // returns list of savings accounts for a particular customer
     public List<SavingsAccount> readSavingAccounts(Customer customer){
-        // todo fix according to table & object constructor
         List<SavingsAccount> list = new ArrayList<>();
         try {
-            String cmd = "SELECT * FROM account WHERE type = \'S\' AND person_name = \'"+ firstName + " " + lastName+"\'";
+            String cmd = "SELECT * FROM bank.accounts WHERE acc_type = 'S' AND cust_email = '" + customer.getEmail() + "';";
             ResultSet rs = getRsFromCmd(cmd);
             SavingsAccount temp;
             while(rs.next()) {
 
-                temp = new SavingsAccount(rs.getFloat("balance"), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
-                        , rs.getFloat("close_fee"), rs.getFloat("open_fee"), rs.getFloat("interest"));
+                temp = new SavingsAccount(new Currency(CurrencyType.USD, rs.getDouble("balance")), this);
                 list.add(temp);
             }
         }
@@ -223,16 +218,14 @@ public class BankData {
     }
     // returns list of security accounts for a particular customer
     public List<SecurityAccount> readSecurityAccounts(Customer customer){
-        // todo fix according to table and object constructor
         List<SecurityAccount> list = new ArrayList<>();
         try {
-            String cmd = "SELECT * FROM account WHERE type = \'I\' AND person_name = \'"+ firstName + " " + lastName+"\';";
+            String cmd = "SELECT * FROM bank.accounts WHERE acc_type = 'A' AND cust_email = '" + customer.getEmail() + "';";
             ResultSet rs = getRsFromCmd(cmd);
             SecurityAccount temp;
             while(rs.next()) {
 
-                temp = new SecurityAccount(rs.getFloat("balance"), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
-                        , rs.getFloat("close_fee"), rs.getFloat("open_fee"));
+                temp = new SecurityAccount(new Currency(CurrencyType.USD, rs.getDouble("balance")), this);
 
                 list.add(temp);
             }
@@ -242,15 +235,14 @@ public class BankData {
     }
     // returns list of all available stocks (for Customer when buying stocks)
     public List<Stock> readStocks(){
-        // TODO fix according to table and object constructor
         List<Stock> list = new ArrayList<>();
         try {
-            String cmd = "SELECT * FROM stock";
+            String cmd = "SELECT * FROM bank.stocks";
             ResultSet rs = getRsFromCmd(cmd);
             Stock temp;
             while(rs.next()) {
 
-                temp = new Stock(rs.getFloat("price"), rs.getInt("total_shares"), rs.getInt("avai_shares"), rs.getString("name"));
+                temp = new Stock(rs.getString("name"), rs.getDouble("price"), rs.getInt("shares"));
 
                 list.add(temp);
             }
@@ -261,18 +253,14 @@ public class BankData {
 
     // returns list of stocks belonging to a specific security account (customer)
     public List<Stock> readStocksFor(SecurityAccount securityAccount){
-        // TODO fix according to table and object constructor
         List<Stock> list = new ArrayList<>();
         try {
-            String cmd = "SELECT * FROM bank.bought_stocks WHERE account_id = "+securityAccount.getRoutingNumber() + securityAccount.getAccountNumber()+";";
+            String cmd = "SELECT * FROM bank.bought_stocks WHERE acc_id = "+ securityAccount.getAccID() +";";
             ResultSet rs = getRsFromCmd(cmd);
             Stock temp;
 
             while(rs.next()) {
-                String stock_name = rs.getString("stock_name");
-                Stock stock = readStockByName(stock_name);
-                temp = new Stock(stock, rs.getInt("share_amount"));
-
+                temp = new Stock(rs.getString("name"), rs.getDouble("price"), rs.getInt("shares"));
                 list.add(temp);
             }
         }
@@ -282,63 +270,58 @@ public class BankData {
 
     // returns list of transactions (Bank Manager Daily Digest)
     public List<Transaction> readTransactions(){
-        // TODO fix according to table and object constructor
+        // TODO change account constructors such that they read from actual accounts
         List<Transaction> list = new ArrayList<>();
-        try {
-            String cmd = "SELECT * FROM transaction WHERE type = \'D\' AND rec_acc_num = \'"+ acc_num +"\' AND  rec_routing_num = \'" + routing_num +"\'";
-            ResultSet rs = getRsFromCmd(cmd);
-            Transaction temp;
-            while(rs.next()) {
-                temp = new Transaction(rs.getFloat("amount"), new Currency(rs.getString("currency")),rs.getInt("rec_acc_num"), rs.getInt("rec_routing_num"));
-                list.add(temp);
-            }
-        }
-        catch(Exception e){ System.out.println(e);}
-        return list;
-    }
-    public List<Transaction> readTransactionsFor(Customer customer){
-        // TODO fix according to table and object constructor
-        List<Transaction> list = new ArrayList<>();
-        try {
-            String cmd = "SELECT * FROM transaction WHERE type = \'D\' AND rec_acc_num = \'"+ acc_num +"\' AND  rec_routing_num = \'" + routing_num +"\'";
-            ResultSet rs = getRsFromCmd(cmd);
-            Transaction temp;
-            while(rs.next()) {
-                temp = new Transaction(rs.getFloat("amount"), new Currency(rs.getString("currency")),rs.getInt("rec_acc_num"), rs.getInt("rec_routing_num"));
-                list.add(temp);
-            }
-        }
-        catch(Exception e){ System.out.println(e);}
-        return list;
-    }
 
+        try {
+            String cmd = "SELECT * FROM bank.transactions;";
+            ResultSet rs = getRsFromCmd(cmd);
+            Transaction temp;
+            while(rs.next()) {
+                Currency amt = new Currency(CurrencyType.USD, rs.getDouble("amt"));
+                String acc_type = rs.getString("acc_type");
+                AccountType acct;
+                if (acc_type.equals("C")) {
+                    acct = new CheckingAccount(amt, this);
+                }
+                else if (acc_type.equals("S")) {
+                    acct = new SavingsAccount(amt, this);
+                }
+                else {
+                    acct = new SecurityAccount(amt, this);
+                }
+                temp = new Transaction(amt, acct);
+                list.add(temp);
+            }
+        }
+        catch(Exception e){ System.out.println(e);}
+        return list;
+    }
 
     // UPDATE -- change the values in a particular table of the db
 
-    // when a customer withdraws or deposits from checking or savaings (security is handled by updateStockX methods)
+    // when a customer withdraws or deposits from checking or savings (security is handled by updateStockX methods)
     public void updateCheckingAccount(CheckingAccount checkingAccount){
-        // TODO fix according to table and object constructor
-        String cmd = "UPDATE bank.account SET balance = \'" + checkingAccount.getBalanceInLocalCurrency() +  "\', active = "+ checkingAccount.isActive() + " , open_fee = \'" + checkingAccount.getOpeningCharge() +"\', close_fee = \'" + checkingAccount.getClosingCharge() +"\', transaction_fee = \'" + checkingAccount.getTransferFee() + "\', " +
-                "withdrawal_fee = \'"+ checkingAccount.getWithdrawalFee() +"\' WHERE (acc_num = \' "+ checkingAccount.getAccountNumber()+" \' AND routing_num = \'"+ checkingAccount.getAccountNumber()+ " \');\n";
+        String cmd = "UPDATE bank.accounts SET balance = " + checkingAccount.getBalance() + " WHERE acc_num = " +
+                checkingAccount.getAccID() + ";";
         execute(cmd);
     }
 
     public void updateSavingAccount(SavingsAccount savingsAccount){
-        // TODO fix according to table and object constructor
-        String cmd = "UPDATE bank.accounts SET balance = \'" + savingsAccount.getBalanceInLocalCurrency() +  "\', active = "+ savingsAccount.isActive() + " , open_fee = \'" + savingsAccount.getOpeningCharge() +"\', close_fee = \'" + savingsAccount.getClosingCharge() +"\'," +
-                "interest = \'"+ savingsAccount.getInterest() +"\' WHERE (acc_num = \' "+ savingsAccount.getAccountNumber()+" \' AND routing_num = \'"+ savingsAccount.getAccountNumber()+ " \');\n";
+        String cmd = "UPDATE bank.accounts SET balance = " + savingsAccount.getBalance() + " WHERE acc_num = " +
+                savingsAccount.getAccID() + ";";
         execute(cmd);
     }
 
     public void updateStock(Stock stock){
-        // TODO fix according to table and object constructor
-        String cmd = "UPDATE bank.stocks SET price = \'" +stock.getCurrentPrice()+ "\', total_shares = \'"+ stock.getTotalShares()+"\', avai_shares = \'"+stock.getCurrentlyAvailableShares()+"\', WHERE (name = \'"+stock.getName()+"\');";
+        String cmd = "UPDATE bank.stocks SET price = " + stock.getPrice() + ", shares = "+ stock.getShares()+
+                " WHERE (name = '"+stock.getCode()+"');";
         execute(cmd);
     }
 
     public void updateBoughtStock(Stock stock, SecurityAccount account){
-        // TODO fix according to table and object constructor
-        String cmd = "UPDATE bank.bought_stocks SET share_amount = \'"+ boughtStock.getAmountOfStocks() +"\', worth = \'" + boughtStock.getTotalAmountSpentOnBuying()+ "\' WHERE (stock_name = \'"+boughtStock.getStock().getName()+"\' AND account_id = \'" + account.getAccountNumber()+"\');";
+        String cmd = "UPDATE bank.bought_stocks SET price = "+ stock.getPrice() +", shares = " + stock.getShares()
+                + " WHERE (name = '"+stock.getCode()+"' AND account_id = " + account.getAccID()+");";
         execute(cmd);
     }
 
@@ -367,11 +350,12 @@ public class BankData {
 	    mostRecentID++;
 	    return mostRecentID;
     }
-
+    /*
 	// for testing
 	public static void main(String[] args) {
 		new BankData();
 	}
+     */
 
 
 }

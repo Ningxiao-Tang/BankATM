@@ -7,10 +7,11 @@ public class Loan {
     private double interest;
     private String collateral;
 
-    public Loan (int id, double amount, double interest) {
+    public Loan (int id, double amount, double interest, String collateral) {
         this.id = id;
         this.amount = amount;
         this.interest = interest;
+        this.collateral = collateral;
     }
 
     public int getId(){
@@ -30,5 +31,9 @@ public class Loan {
     }
     public void setAmount(double d){
         amount = d;
+    }
+
+    public String getCollateral() {
+        return collateral;
     }
 }
