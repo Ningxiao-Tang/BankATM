@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Base64;
 
 public class SignInView extends JFrame {
     JLabel usernameL, passwordL;
@@ -64,7 +67,13 @@ public class SignInView extends JFrame {
                 }
                 try {
                     String realPass = db.getCredentials(username);
-                    if (password.equals(realPass)) {
+                    // hash password submitted and see if it matches saved password
+                    MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                    byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+                    String encoded = Base64.getEncoder().encodeToString(hash);
+                    System.out.println(encoded);
+
+                    if (encoded.equals(realPass)) {
                         CustomerView customerView = new CustomerView();
                         customerView.setVisible(true);
                         dispose();

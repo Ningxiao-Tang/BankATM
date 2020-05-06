@@ -6,6 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 public class RegisterView extends JFrame {
     private Database.BankData db;
@@ -60,7 +64,17 @@ public class RegisterView extends JFrame {
                 String lname = lnameField.getText();
                 String email = emailField.getText();
                 String password = String.valueOf(passwordField.getPassword());
-                Customer customer = new Customer(fname, lname, email, password, db);
+                // hash password before putting it into db
+                MessageDigest digest = null;
+                try {
+                    digest = MessageDigest.getInstance("SHA-256");
+                } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
+                    noSuchAlgorithmException.printStackTrace();
+                }
+                byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+                String encoded = Base64.getEncoder().encodeToString(hash);
+
+                Customer customer = new Customer(fname, lname, email, encoded, db);
                 db.addCustomer(customer);
 
                 // todo add salt and hash
