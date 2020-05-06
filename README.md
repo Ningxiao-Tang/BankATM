@@ -55,19 +55,35 @@ Loan - Class representing the loans of a bank ATM
 ### GUI classes
 
 BuyStockView: The view for customer to buy stocks
+
 CreateAccountMenu: The view for customer to create an account
+
 CustomerInfoView: The view for manager to check all customers
+
 CustomerView: The view of logged in customers
+
 DepositView: The view for customer to make a deposit to the selected account
+
 LoanView: The view for customer to make a loan
+
 LoginMenu: Main menu of BankATM app
+
 ManagerStockView: The view for manager to edit stock attributes
+
 ManagerView: The view of logged in bank manager
+
 RegisterView: View for customer to register in the Bank
+
 ReportView: View for bank manager to check daily report
+
 SellStock: View for customer to sell their stocks
+
 SignInview: The view for users to sign in to the BankATM
+
 StockListView: Frame for all stocks, managers can view all stocks, customers can view their bought stocks
+
 TransactionsView: View of customer’s transactions
+
 TransferView: View for customer to make a transfer from selected account to another account in BankATM system.
+
 WithdrawView: The view for customer to withdraw from the selected account
