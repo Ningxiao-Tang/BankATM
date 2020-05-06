@@ -9,6 +9,7 @@ public class SavingsAccount extends AccountType {
 	
 	public SavingsAccount(Currency c, Database.BankData db) {
 		super(c, db);
+		accType = 'S';
 	}
 
 	public boolean qualifiesForSecurities() {

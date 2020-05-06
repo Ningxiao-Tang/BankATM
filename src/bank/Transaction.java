@@ -9,4 +9,12 @@ public class Transaction {
 		this.amt = amount;
 		this.account = acc;
 	}
+
+	public AccountType getAccount() {
+		return account;
+	}
+
+	public double getAmt() {
+		return amt.getValue();
+	}
 }

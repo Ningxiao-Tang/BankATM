@@ -4,13 +4,15 @@
 package bank;
 
 public abstract class AccountType {
-	
+
 	protected Currency balance;
 	protected boolean isActive;
 	protected Database.BankData db;
-	public static Currency accountOpenFee; // set by manager
-	public static Currency accountCloseFee; // set by manager
-	public static Currency withdrawlFee; // set by manager
+	protected int accID;
+	protected char accType;
+	public static double accountOpenFee; // set by manager
+	public static double accountClosedFee; // set by manager
+	public static double withdrawlFee; // set by manager
 
 	public AccountType(Currency startingBalance, Database.BankData db) {
 		this.balance = startingBalance;
@@ -21,7 +23,11 @@ public abstract class AccountType {
 	public Currency getBalance() {
 		return balance;
 	}
-	
+
+	public int getAccID() {
+		return accID;
+	}
+
 	public void deposit(Currency value) {
 		new Deposit(value, this);
 	}

@@ -16,6 +16,7 @@ public class SecurityAccount extends AccountType {
 	public SecurityAccount(Currency c, BankData db) {
 		super(c, db);
 		boughtStocks = db.readStocksFor(this);
+		accType = 'A';
 	}
 
 	public List<Stock> viewStockOptions() {

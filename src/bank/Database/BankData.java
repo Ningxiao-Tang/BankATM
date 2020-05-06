@@ -7,19 +7,19 @@ import bank.Currency;
 import bank.Customer;
 import bank.Loan;
 import bank.SavingsAccount;
-import bank.SecurityAccount;
-import bank.SecurityAccount;
-import bank.Stock;
+import bank.SecurityAccount;;
 import bank.Stock;
 import bank.Transaction;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 
 // TODO take out commented code
 public class BankData {
-    public static final ReportView;
+    //public static final GUI.ReportView();
 
     // Source for connection code:
     // https://www.javaworld.com/article/3388036/what-is-jdbc-introduction-to-java-database-connectivity.html
@@ -75,10 +75,10 @@ public class BankData {
     private <T extends AccountType> void addAccount(Customer customer, T acct, String acctType) {
         int acc_num = getNewID();
         String cust_email = customer.getEmail();
-        double balance = T.getBalance().getValue();
-        double acc_open_fee = T.accountOpenFee;
-        double acc_closed_fee = T.accountClosedFee;
-        double withdrawl_fee = T.withdrawlFee;
+        double balance = acct.getBalance().getValue();
+        double acc_open_fee = AccountType.accountOpenFee;
+        double acc_closed_fee = AccountType.accountClosedFee;
+        double withdrawl_fee = AccountType.withdrawlFee;
         String cmd = "INSERT INTO bank.accounts(acc_num, cust_email, balance, acc_open_fee, acc_closed_fee, withdrawl_fee" +
                 ") VALUES (" + acc_num + ", '" + cust_email + "', " + balance + ", " + acc_open_fee + ", " +
                 acc_closed_fee + ", " + withdrawl_fee + ", '" + acctType + "');";
@@ -106,15 +106,22 @@ public class BankData {
 
     // buy stock from the list of available stocks (Customer)
     public void buyStock(Stock stock, SecurityAccount securityAccount) {
-        // todo complete according to table
-        String cmd = "INSERT INTO bank.bought_stocks (share_amount, worth, account_id, stock_name) VALUES (\'";
+        int acc_id = securityAccount.getAccID();
+        String name = stock.getCode();
+        double price = stock.getPrice();
+        int shares = stock.getShares();
+        String cmd = "INSERT INTO bank.bought_stocks(acc_id, name, price, shares) VALUES (" + acc_id + ", '" + name +
+                "', " + price + ", " + shares + ");";
         execute(cmd);
     }
 
     // add transaction to total list of transactions (for Bank Manager)
     public void addTransaction(Transaction transaction){
-        // todo complete according to table
-        String cmd = "INSERT INTO bank.transactions (sender_acc_num, sender_routing_num, rec_acc_num, rec_routing_num, currency, amount, type)";
+
+        int acc_id = transaction.getAccount().getAccID();
+        int acc_type = transaction.getAccount().
+
+        String cmd = "INSERT INTO bank.transactions(acc_id, acc_type, amt, target_id) VALUES (";
         execute(cmd);
     }
     // add loan to total list of loans (for Bank Manager)
@@ -332,38 +339,6 @@ public class BankData {
     public void updateBoughtStock(Stock stock, SecurityAccount account){
         // TODO fix according to table and object constructor
         String cmd = "UPDATE bank.bought_stocks SET share_amount = \'"+ boughtStock.getAmountOfStocks() +"\', worth = \'" + boughtStock.getTotalAmountSpentOnBuying()+ "\' WHERE (stock_name = \'"+boughtStock.getStock().getName()+"\' AND account_id = \'" + account.getAccountNumber()+"\');";
-        execute(cmd);
-    }
-
-    // DELETE things from db tables
-    public void deletePerson(){
-        // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.person";
-        execute(cmd);
-    }
-    public void deleteAccount(){
-        // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.customers";
-        execute(cmd);
-    }
-    public void deleteLoan(){
-        // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.loans";
-        execute(cmd);
-    }
-    public void deleteStock(){
-        // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.stock";
-        execute(cmd);
-    }
-    public void deleteBoughtStock(){
-        // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.bought_stock";
-        execute(cmd);
-    }
-    public void deleteTransaction(){
-        // TODO fix according to table and object constructor
-        String cmd = "DELETE FROM bank_atm.transaction";
         execute(cmd);
     }
 

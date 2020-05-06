@@ -11,6 +11,7 @@ public class CheckingAccount extends AccountType {
 	
 	public CheckingAccount(Currency c, Database.BankData db) {
 		super(c, db);
+		accType = 'C';
 	}
 
 	public double getBalanceInLocalCurrency() {

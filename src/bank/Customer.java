@@ -1,5 +1,5 @@
 /*
-A subclaass of User that represents a customer of the bank ATM
+A subclass of User that represents a customer of the bank ATM
 */
 
 package bank;
