@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 public class CreateAccountMenu extends JDialog {
 //    private BankData bank;
 //    private Customer customer = null;
+        //private AccountType acc;
 
-    public CreateAccountMenu(JFrame parent, boolean model ) { //also need to pass bankdata,
+    public CreateAccountMenu(JFrame parent, boolean model ) { //also need to pass bankdata,and customer
         super(parent,model);
         initComponents(this);
         setLocationRelativeTo(parent);
         //this.bank = bank;
+        //this.customer = customer;
     }
 
     private void initComponents(JDialog parent) {
@@ -35,7 +37,6 @@ public class CreateAccountMenu extends JDialog {
         okBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String deposit = " ";
                 StringBuilder warnings = new StringBuilder();
                 double amount = 0;
                 if (depositField.getText().isEmpty()) {
@@ -50,23 +51,25 @@ public class CreateAccountMenu extends JDialog {
                 if (warnings.length() > 0) {
                     JOptionPane.showMessageDialog(parentComponent, warnings.toString(), "Input Warnings", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    String accountType = "";
+
+                    String acctType = "";
                     if (typeField.getSelectedItem().toString() == "Checking") {
                         if (amount >= 100) {
-                            accountType = "Checking";
+                            acctType = "Checking";
 
                         } else {
                             warnings.append("Initial deposit must be at least $100 for Checking accounts.");
                         }
                     } else if (typeField.getSelectedItem().toString() == "Savings") {
                         if (amount >= 200) {
-                            accountType = "Savings";
+                            acctType = "Savings";
                         } else {
                             warnings.append("Initial deposit must be at least $200 for Savings accounts.");
                         }
                     }
-
-                        //customer = bank.openAccount(accountType, amount);
+                    //TODO:
+                        //acc = new AccountType(amount)
+                        //acc =  bank.addAccount(customer, acc, acctType);
                         dispose();
 
                 }

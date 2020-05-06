@@ -47,6 +47,12 @@ public class SignInView extends JFrame {
                 String username = usernameField.getText();
                 String password = String.valueOf(passwordField.getPassword());
                 //TODO: return user instance from BankData
+                // user = bank.getUser(username, password);
+                // if (user instanceof Customer)
+                //      CustomerView customerView = new CustomerView(bank, (Customer) user);
+                //      ...
+                // else
+                //      ManagerView managerView = new ManagerView(bank, (Manager) user);
                 if (username.equals("Alice") && password.equals("12345")) {
                     CustomerView customerView = new CustomerView();
                     customerView.setVisible(true);
