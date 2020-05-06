@@ -28,4 +28,7 @@ This was because it had a simpler implementation with the same functionality.
 Database
 
 
-GUI 
+Customer view consists of a left panel of option buttons, and a right panel where details of their accounts are displayed. For deposit, withdraw, and loan action, customer first select an account from the account table and choose one of the actions, then a dialog window is created to handle the event. For transfer, buy stock, sell stock, and history options, a new window is created to handle the event. 
+For stock activity, a separate stock list view is created to display stock information from database, so it is reusable for both customer's and manager's stock view.
+Similarly, transaction view would retrieve transaction history from database and could be reused for manager's daily report view and customer's transaction history view. Due to time constrains, the transaction and stock list view are not fully developed.
+
