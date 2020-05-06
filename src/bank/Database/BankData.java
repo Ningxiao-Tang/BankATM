@@ -1,7 +1,12 @@
 // class which connects to our MySQL database
 package Database;
 
+import bank.SecurityAccount;
+import bank.Stock;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // TODO take out commented code
 public class BankData {
@@ -245,7 +250,7 @@ public class BankData {
         try {
             String cmd = "SELECT * FROM bank.bought_stocks WHERE account_id = "+securityAccount.getRoutingNumber() + securityAccount.getAccountNumber()+";";
             ResultSet rs = getRsFromCmd(cmd);
-            BoughtStock temp;
+            Stock temp;
 
             while(rs.next()) {
                 String stock_name = rs.getString("stock_name");
@@ -258,7 +263,7 @@ public class BankData {
         catch(Exception e){ System.out.println(e);}
         return list;
     }
-
+    
     // returns list of transactions (Bank Manager Daily Digest)
     public List<Transaction> readTransactions(){
         // TODO fix according to table and object constructor
@@ -383,4 +388,6 @@ public class BankData {
 	public static void main(String[] args) {
 		new BankData();
 	}
+
+
 }
