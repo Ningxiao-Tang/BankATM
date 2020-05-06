@@ -42,7 +42,9 @@ User - Class that represents a user of the bank ATM
 	Manager - A user that represents the admin/manager of the bank ATM (only one manager)
 
 Currency - Class representing of currency, it can hold 3 different currency types and a value representing the amount of money it holds
+
 CurrencyType - Enum file that contains three different types of currencies 
+
 Transaction - Class that represents the different kinds of transactions a bank account can make.
 
 	Withdraw- Subclass of transaction that represents a withdrawal of money from an ATM
@@ -50,6 +52,7 @@ Transaction - Class that represents the different kinds of transactions a bank a
 	Transfer- Subclass of transaction that represents a transfer of money from an ATM
 
 Stock - Class representing the stocks of a bank ATM, which can be manipulated by the Manager
+
 Loan - Class representing the loans of a bank ATM
 
 ### GUI classes
