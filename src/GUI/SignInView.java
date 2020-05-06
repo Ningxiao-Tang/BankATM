@@ -1,5 +1,7 @@
 package GUI;
 
+import Database.BankData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,12 +12,12 @@ public class SignInView extends JFrame {
     JTextField usernameField;
     JPasswordField passwordField;
     JButton signInBtn, cancelBtn;
-    //private BankData bank;
+    private BankData db;
     //private User user;
 
 
-    public SignInView(){
-
+    public SignInView(BankData db){
+        this.db = db;
         int width = 600;
         int height = 400;
         this.setTitle("Sign In");
@@ -55,6 +57,23 @@ public class SignInView extends JFrame {
                 //      ...
                 // else
                 //      ManagerView managerView = new ManagerView(bank, (Manager) user);
+                if (username.equals("admin") && password.equals("admin")) {
+                    ManagerView managerView = new ManagerView();
+                    managerView.setVisible(true);
+                    dispose();
+                }
+                try {
+                    String realPass = db.getCredentials(username);
+                    if (password.equals(realPass)) {
+                        CustomerView customerView = new CustomerView();
+                        customerView.setVisible(true);
+                        dispose();
+                    }
+
+                }catch (Exception exception) {
+                    System.out.println(exception);
+                }
+                /*
                 if (username.equals("Alice") && password.equals("12345")) {
                     CustomerView customerView = new CustomerView();
                     customerView.setVisible(true);
@@ -65,6 +84,8 @@ public class SignInView extends JFrame {
                     managerView.setVisible(true);
                     dispose();
                 }
+
+                 */
 
 
             }

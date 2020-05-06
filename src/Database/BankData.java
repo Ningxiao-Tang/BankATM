@@ -7,9 +7,9 @@ import bank.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
-// TODO take out commented code
 public class BankData {
     //public static final GUI.ReportView();
 
@@ -61,6 +61,7 @@ public class BankData {
         String password = customer.getPassword();
         String cmd = "INSERT INTO bank.customers(id, first_name, last_name, email, password) VALUES (" +
                 id + ", '" + first_name + "', '" + last_name + "', '" + email + "', '" + password + "');";
+        execute(cmd);
     }
 
     // inserts new accounts
@@ -298,6 +299,18 @@ public class BankData {
         return list;
     }
 
+
+    public String getCredentials(String email) throws SQLException {
+        String pass = "";
+        String cmd = "SELECT * FROM bank.customers WHERE email='" + email + "';";
+        ResultSet rs = getRsFromCmd(cmd);
+        while(rs.next()) {
+            pass = rs.getString("password");
+        }
+        System.out.println(rs);
+        return pass;
+    }
+
     // UPDATE -- change the values in a particular table of the db
 
     // when a customer withdraws or deposits from checking or savings (security is handled by updateStockX methods)
@@ -325,6 +338,7 @@ public class BankData {
         execute(cmd);
     }
 
+
     // helpers for reading/writing to database
 
     private ResultSet getRsFromCmd(String cmd) {
@@ -347,8 +361,9 @@ public class BankData {
     }
 
     public static int getNewID() {
-	    mostRecentID++;
-	    return mostRecentID;
+	    Random rand = new Random();
+        int x = rand.nextInt(999) + 1000;
+        return x;
     }
 
 	// for testing

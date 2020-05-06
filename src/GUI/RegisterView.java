@@ -61,7 +61,7 @@ public class RegisterView extends JFrame {
                 String email = emailField.getText();
                 String password = String.valueOf(passwordField.getPassword());
                 Customer customer = new Customer(fname, lname, email, password, db);
-                //db.addCustomer(customer);s
+                db.addCustomer(customer);
 
                 // todo add salt and hash
 

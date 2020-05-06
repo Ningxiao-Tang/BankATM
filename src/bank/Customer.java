@@ -15,9 +15,9 @@ public class Customer extends User {
 
     public Customer(String firstName, String lastName, String email, String password, BankData db) {
         super(firstName, lastName, email, password, db);
-        checkingAccounts = (this.db).readCheckingAccounts(this);
-        savingsAccounts = (this.db).readSavingAccounts(this);
-        securityAccounts = (this.db).readSecurityAccounts(this);
+        //checkingAccounts = (this.db).readCheckingAccounts(this);
+        //savingsAccounts = (this.db).readSavingAccounts(this);
+        //securityAccounts = (this.db).readSecurityAccounts(this);
     	// todo add customer to bankdata not manager |Manager.addCustomer(this);
     }
 

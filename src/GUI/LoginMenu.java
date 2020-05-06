@@ -55,7 +55,7 @@ public class LoginMenu extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //display sign-in frame,
-                SignInView customerSign = new SignInView();
+                SignInView customerSign = new SignInView(db);
 
             }
         });
@@ -64,7 +64,7 @@ public class LoginMenu extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //display sign-in frame
-                SignInView managerSign = new SignInView();
+                SignInView managerSign = new SignInView(db);
             }
         });
     }
