@@ -14,8 +14,16 @@ BU ID: U20262071
 
 Backend/OOD files
 
-We didn't have a UML, instead we had a shared google doc where we had all the classes organized in a way where we can see their relationship to one another (it looked very similar to the readME). 
-We tried to make our app follow OOD as close as possible, for example for every aspect of the app we have made a class for it that will inherit from the superclass. The main superclasses were AccountType, User, Transaction. We decided to not have a overclass Account for both AccountType and User because there isn't much in common between the two, and so we wanted to separate them. Transaction was its separate class because just like in Quest where there are Item, here Transaction is the "Item" of Bank ATM. For the Currency class, instead of using separate classes for the different types of currencies, we decided to go with enum with the file CurrencyType. This was because it had a simpler implementation with the same functionality.
+We didn't have a UML, instead we had a shared google doc where we had all the classes organized
+in a way where we can see their relationship to one another (it looked very similar to the readME). 
+We tried to make our app follow OOD as close as possible, for example for every aspect of the app
+we have made a class for it that will inherit from the superclass. The main superclasses were 
+AccountType, User, Transaction. We decided to not have a overclass Account for both AccountType and 
+User because there isn't much in common between the two, and so we wanted to separate them. 
+Transaction was its separate class because just like in Quest where there are Item, here Transaction 
+is the "Item" of Bank ATM. For the Currency class, instead of using separate classes for the 
+different types of currencies, we decided to go with enum with the file CurrencyType. 
+This was because it had a simpler implementation with the same functionality.
 
 Database
 

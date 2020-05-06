@@ -7,10 +7,10 @@ Team #9
 
 ## Contributers
 Elyse Kaczmarek
-BU ID: 
+BU ID: U65134290 
 
 Ningxiao Tang
-BU ID:
+BU ID: U20262071
 
 Eunice Choi
 BU ID: U75265203
@@ -24,7 +24,7 @@ java Main
 ## Files 
 
 ### Database 
-BankData - 
+BankData - Class which connects to the MySQL database
 
 ### Backend/OOD files
 
