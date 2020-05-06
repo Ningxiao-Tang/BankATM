@@ -1,6 +1,8 @@
 # BankATM
 OOD final project
+
 Date: 5/6/2020
+
 Team #9
 
 ## Contributers
@@ -16,6 +18,7 @@ BU ID: U75265203
 
 ## How to run
 javac Main.java
+
 java Main
 
 ## Files 
