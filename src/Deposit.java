@@ -1,3 +1,4 @@
+// Subclass of transaction that represents a deposit of money from an ATM
 public class Deposit extends Transaction {
 
 	public Deposit(Currency c, AccountType acc) {

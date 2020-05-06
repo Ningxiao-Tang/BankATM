@@ -1,3 +1,5 @@
+/* Class representing the loans of a bank ATM */
+
 public class Loan {
     private int id;
     private double amount;

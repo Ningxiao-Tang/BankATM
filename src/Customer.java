@@ -1,3 +1,7 @@
+/*
+A user that 
+*/
+
 import java.util.List;
 import Database.BankData;
 

@@ -1,3 +1,4 @@
+// Subclass of transaction that represents a withdrawal of money from an ATM
 public class Withdraw extends Transaction {
 
 	public Withdraw(Currency c, AccountType acc) {

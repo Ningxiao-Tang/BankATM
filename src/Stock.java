@@ -1,3 +1,5 @@
+// Class representing the loans of a bank ATM
+
 public class Stock {
     private String code;
     private double price;
