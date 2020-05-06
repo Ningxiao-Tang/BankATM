@@ -35,14 +35,6 @@ public class Currency {
 		return symbol;
 	}
 
-	// public <T extends Currency> T convert(String toType) {
-	// 	if (toType.equals("usd")) { return this.convertToUSD()};
-	// 	else if (toType.equals("euro")) {return this.convertToEURO()};
-	// 	else if (toType.equals("rmb")) {return this.convertToRMB()};
-	// 	else {
-	// 		throw new IllegalArgumentException("Not a valid currency type.");
-	// 	}
-	// }
 
 	public double convert(CurrencyType toConvert) {
 		// converts the current currency to the inputted type and returns its value
@@ -77,8 +69,4 @@ public class Currency {
 		this.value = amt;
 	}
 
-	// public <T extends Currency> boolean equals(T currency) {
-	// 	Currency convertedCur = currency.convert(this.type);
-	// 	return (this.getValue() == convertedCur.getValue());
-	// }
 }

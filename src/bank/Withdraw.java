@@ -9,6 +9,7 @@ public class Withdraw extends Transaction {
 	}
 
 	public void withdraw() {
+		// withdraw action, basically checks for currency type and takes out the money
 		double valToSub = this.amt.getValue();
 		CurrencyType accCurrType = this.account.getBalance().getType();
 

@@ -1,3 +1,5 @@
+/* CustomerView is the view of a logged in customer */
+
 package GUI;
 
 import Database.BankData;
@@ -21,7 +23,6 @@ public class CustomerView extends JFrame {
     private Customer customer;
     private BankData db;
     private double oldVal;
-    //private ArrayList<Transactions> transactions;
     JTable accountTable = new JTable();
     //private final DefaultTableModel model;
 
@@ -29,9 +30,7 @@ public class CustomerView extends JFrame {
         //pass customer, transactions to CustomerView
         this.customer = customer;
         this.db = db;
-//        this.transactions = transactions;
         initComponents();
-        //model = (DefaultTableModel) accountTable.getModel();
     }
 
     private void initComponents() {
@@ -63,7 +62,6 @@ public class CustomerView extends JFrame {
 
         jp.add(buttonPanel);
 
-        //String [][] data = new String[][]{{"100001","Checking","2000","50.45","0.00"}, {"100002","Saving","50","0","0"}};
         String[] toAdd = null;
         String[] toAdd2 = null;
         String[][] data = new String[0][];
@@ -224,15 +222,6 @@ public class CustomerView extends JFrame {
         setAccountButtonsActive(true);
 
     }
-    /* Uncomment it when Customer class is working
-    private Customer getSelectedCustomer(){
-        Customer customer = null;
-        int selectedRow = accountTable.getSelectedRow();
-        if(selectedRow >= 0) {
-            int accountNumber = (int) accountTable.getValueAt(selectedRow,0);
-            customer = bank.getCustomer(accountNumber);
-        }
-    }*/
 
     private void sellStockBtnActionPerformed() {
         SellStockView ssv = new SellStockView();
@@ -271,16 +260,6 @@ public class CustomerView extends JFrame {
         menu.setVisible(true);
     }
 
-//    private void addCustomerToTable(Customer customer) {
-//        model.addRow(new Object[]{});
-//        reloadCustomerRowData(model.getRowCount() - 1, customer.getAccount().getAccountNumber());
-//    }
-//
-//    private void reloadCustomerRowData(int selectedRow, int accountId) {
-//        Customer customer = bank.getCustomer(accountId);
-//        model.setValueAt(customer.getName(), selectedRow, 0);
-//        model.setValueAt(String.format("%.2f", customer.getAccount().getBalance()), selectedRow, 1);
-//    }
 
     private void setAccountButtonsActive(boolean active) {
         depositBnt.setEnabled(active);

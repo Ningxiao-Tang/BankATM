@@ -1,3 +1,5 @@
+/* The view for manager to check all customers */
+
 package GUI;
 
 import javax.swing.*;
@@ -7,16 +9,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class CustomerInfoView extends JFrame {
-   // public BankData bank;
 
     public CustomerInfoView() {
-//        ArrayList<Customer> customers = bank.readCustomers();
-//        for (Customer c : customers){
-//            JTextField nameField = new JTextField().setText(customer.getName());
-//            JTextField accTypeField = new JTextField().setText(customer.)
-//        }
         initComponent();
-
     }
 
     private void initComponent() {

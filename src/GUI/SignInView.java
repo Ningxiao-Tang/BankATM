@@ -1,3 +1,4 @@
+/* This class represents the view for users to sign in to the BankATM */
 package GUI;
 
 import Database.BankData;

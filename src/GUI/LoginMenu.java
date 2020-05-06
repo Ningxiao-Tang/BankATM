@@ -1,3 +1,5 @@
+/* Main menu of BankATM app */
+
 package GUI;
 
 import Database.BankData;

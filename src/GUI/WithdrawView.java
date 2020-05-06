@@ -1,3 +1,5 @@
+/* The view for customer to withdraw from the selected account */
+
 package GUI;
 
 import Database.BankData;

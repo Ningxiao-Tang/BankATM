@@ -1,3 +1,5 @@
+/* The view for customer to make a loan */
+
 package GUI;
 
 import javax.swing.*;

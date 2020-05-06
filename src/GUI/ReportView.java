@@ -1,3 +1,4 @@
+/* View for bank manager to check daily report */
 package GUI;
 
 import javax.swing.*;

@@ -1,3 +1,5 @@
+/* View of customer’s transactions */
+
 package GUI;
 
 import javax.swing.*;

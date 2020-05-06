@@ -9,6 +9,7 @@ public class Deposit extends Transaction {
 	}	
 	
 	public void deposit() {
+		// deposit action, basically checks for currency type and takes in the money
 		double valToAdd = this.amt.getValue();
 		CurrencyType accCurrType = this.account.getBalance().getType();
 

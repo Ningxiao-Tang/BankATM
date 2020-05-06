@@ -1,3 +1,5 @@
+/* RegisterView is a view for customer to register as a user in the bank */
+
 package GUI;
 
 import bank.Customer;

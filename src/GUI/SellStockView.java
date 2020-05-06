@@ -1,3 +1,5 @@
+/* SellStockView is a view for customer to sell their stocks */
+
 package GUI;
 
 import javax.swing.*;
@@ -6,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SellStockView extends JFrame {
-    //private BankData bank;
 
     public SellStockView() {
         JPanel jp = new JPanel();

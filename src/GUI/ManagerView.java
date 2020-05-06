@@ -1,3 +1,4 @@
+/* The view of a logged in bank manager */
 package GUI;
 
 import javax.swing.*;

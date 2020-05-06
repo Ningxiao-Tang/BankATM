@@ -1,6 +1,6 @@
 package bank;
-// Class representing the stocks of a bank ATM
 
+// Class representing the stocks of a bank ATM
 public class Stock {
     private String code;
     private double price;
