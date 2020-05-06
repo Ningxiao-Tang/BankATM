@@ -74,9 +74,10 @@ public class DepositView extends JDialog {
                                 else if (currency == "EUR"){
 
                                 } */
-
                                 CheckingAccount acc = new CheckingAccount(new Currency(CurrencyType.USD, oldVal+amount), db);
-                                db.updateCheckingAccount(acc);
+
+                                db.updateCheckingAccount(acc, customer);
+
                                 dispose();
                             } catch (Exception ex) {
                                 warnings.append("Deposit amount is invalid.\n");

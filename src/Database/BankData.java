@@ -331,9 +331,9 @@ public class BankData {
     // UPDATE -- change the values in a particular table of the db
 
     // when a customer withdraws or deposits from checking or savings (security is handled by updateStockX methods)
-    public void updateCheckingAccount(CheckingAccount checkingAccount){
-        String cmd = "UPDATE bank.accounts SET balance = " + checkingAccount.getBalance().getValue() + " WHERE acc_num = " +
-                checkingAccount.getAccID() + ";";
+    public void updateCheckingAccount(CheckingAccount checkingAccount, Customer customer){
+        String cmd = "UPDATE bank.accounts SET balance = " + checkingAccount.getBalance().getValue() + " WHERE cust_email = '" +
+                customer.getEmail() + "';";
         execute(cmd);
     }
 

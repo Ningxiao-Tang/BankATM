@@ -254,7 +254,7 @@ public class CustomerView extends JFrame {
     }
 
     private void withdrawBtnActionPerformed() {
-        WithdrawView wView = new WithdrawView(this, true, oldVal, db);
+        WithdrawView wView = new WithdrawView(this, true, oldVal, customer, db);
         wView.setVisible(true);
     }
 

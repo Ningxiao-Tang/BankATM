@@ -4,6 +4,7 @@ import Database.BankData;
 import bank.CheckingAccount;
 import bank.Currency;
 import bank.CurrencyType;
+import bank.Customer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,15 +18,17 @@ public class WithdrawView extends JDialog {
 //    private Bank bank;
     private double oldVal;
     private BankData db;
+    private Customer customer;
 
 
 
-    public WithdrawView(JFrame parent, boolean modal, double oldVal, BankData db) {
+    public WithdrawView(JFrame parent, boolean modal, double oldVal, Customer customer, BankData db) {
         super(parent,modal);
         initComponets(this);
         setLocationRelativeTo(parent);
         this.oldVal = oldVal;
         this.db = db;
+        this.customer = customer;
     }
 
     private void initComponets(WithdrawView depositView) {
@@ -74,7 +77,8 @@ public class WithdrawView extends JDialog {
 
                                 }*/
                                 CheckingAccount acc = new CheckingAccount(new Currency(CurrencyType.USD, oldVal-amount), db);
-                                db.updateCheckingAccount(acc);
+
+                                db.updateCheckingAccount(acc, customer);
                                 dispose();
                             } catch (Exception ex) {
                                 warnings.append("Insufficient funds to complete transaction.\n");
