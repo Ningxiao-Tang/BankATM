@@ -7,13 +7,15 @@ public abstract class AccountType {
 	
 	protected Currency balance;
 	protected boolean isActive;
+	protected Database.BankData db;
 	public static Currency accountOpenFee; // set by manager
 	public static Currency accountCloseFee; // set by manager
 	public static Currency withdrawlFee; // set by manager
 
-	public AccountType(Currency startingBalance) {
+	public AccountType(Currency startingBalance, Database.BankData db) {
 		this.balance = startingBalance;
 		this.isActive = true;
+		this.db = db;
 	}
 
 	public Currency getBalance() {

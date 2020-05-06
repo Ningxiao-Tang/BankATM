@@ -8,37 +8,44 @@ public class Manager extends User {
 		Class that represents the actions and attributes of the bank manager
 	*/
 
-	private static List<Customer> customers =  BankData.readCustomers();
-	private static List<Stock> stocks = BankData.readStocks();
+	private List<Customer> customers;
+	private List<Stock> stocks;
+
+	public Manager(String firstName, String lastName, String email, String password, BankData db) {
+		super(firstName, lastName, email, password, db);
+		customers = db.readCustomers();
+		stocks = db.readStocks();
+	}
 
 
-	public static Arraylist<Customer> getAllCustomers() {
+	public List<Customer> getAllCustomers() {
 		return this.customers;
 	}
 
 
-	public static Customer getCustomerInfo(String username) {
+	public Customer getCustomerInfo(String email) {
+		Customer ret = null;
 		for (Customer c: this.customers) {
-			if (c.username == username) {
-				return c;
+			if ((c.getEmail()).equals(email)) {
+				ret = c;
 			}
-			return null;
 		}
+		return ret;
 	}
 
-	public static void addNewCustomer(Customer c) {
-		BankData.addCustomer(c);
+	public void addNewCustomer(Customer c) {
+		db.addCustomer(c);
 		this.customers.add(c);
 	}
 
-	public static void changeStockValue(Stock s, double newPrice) {
+	public void changeStockValue(Stock s, double newPrice) {
 		s.setPrice(newPrice);
-		BankData.updateStock(s);
+		db.updateStock(s);
 
 	}
 
-	public static List<Transaction> getDailyReport(){
+	public List<Transaction> getDailyReport(){
 		//  returns a daily report on transactions for that day.
-		return BankData.readTransactions();
+		return db.readTransactions();
 	}
 }

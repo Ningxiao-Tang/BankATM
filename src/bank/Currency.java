@@ -46,17 +46,22 @@ public class Currency {
 
 	public double convert(CurrencyType toConvert) {
 		// converts the current currency to the inputted type and returns its value
+		double ret = 0;
 		switch (toConvert) {
 		    case USD:
-		    	if (this.type == CurrencyType.EURO) { return this.value * 1.11; }
-		    	if (this.type == CurrencyType.RMB) { return this.value * 0.14; }
+		    	if (this.type == CurrencyType.EURO) { ret = this.value * 1.11; }
+		    	if (this.type == CurrencyType.RMB) { ret = this.value * 0.14; }
 		    case EURO:
-		    	if (this.type == CurrencyType.USD) { return this.value *  0.9; }
-		    	if (this.type == CurrencyType.RMB) { return this.value * 0.13; }
+		    	if (this.type == CurrencyType.USD) { ret = this.value *  0.9; }
+		    	if (this.type == CurrencyType.RMB) { ret = this.value * 0.13; }
 		    case RMB:
-		    	if (this.type == CurrencyType.USD) { return this.value *  7.06; }
-		    	if (this.type == CurrencyType.EURO) { return this.value * 7.84; }
+		    	if (this.type == CurrencyType.USD) { ret = this.value *  7.06; }
+		    	if (this.type == CurrencyType.EURO) { ret = this.value * 7.84; }
+				break;
+			default:
+				throw new IllegalStateException("Unexpected value: " + toConvert);
 		}
+		return ret;
 	}
 
 	// setters for currency value 

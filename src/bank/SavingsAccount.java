@@ -8,8 +8,8 @@ public class SavingsAccount extends AccountType {
 
 	public static float percentInterest; // set by bank manager
 	
-	public SavingsAccount(Currency c) {
-		super(c);
+	public SavingsAccount(Currency c, Database.BankData db) {
+		super(c, db);
 	}
 
 	public boolean qualifiesForSecurities() {

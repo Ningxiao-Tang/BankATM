@@ -12,7 +12,7 @@ public class SecurityAccount extends AccountType {
 	private List<Stock> boughtStocks;
 	
 	public SecurityAccount(Currency c, BankData db) {
-		super(c);
+		super(c, db);
 		boughtStocks = db.readStocksFor(this);
 	}
 
@@ -21,8 +21,8 @@ public class SecurityAccount extends AccountType {
 	}
 
 	public void buyStock(Stock stock) {
-		BankData.buyStock(stock, this);
-		this.boughtStocks.add(stock);
+		db.buyStock(stock, this);
+		(this.boughtStocks).add(stock);
 	}
 
 	public void sellStock(Stock stock) {

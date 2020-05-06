@@ -4,32 +4,35 @@ import java.util.List;
 import Database.BankData;
 
 public class Customer extends User {
+    private BankData db;
+    private List<CheckingAccount> checkingAccounts;
+    private List<SavingsAccount> savingsAccounts;
+    private List<SecurityAccount> securityAccounts;
 
-    private List<CheckingAccount> checkingAccounts = BankData.readSavingAccounts(this);
-    private List<SavingsAccount> savingsAccounts = BankData.readSavingAccounts(this);
-    private List<SecurityAccount> securityAccounts = BankData.readSecurityAccounts(this);
-
-    public Customer(String firstName, String lastName, String email, String password) {
-        super(firstName, lastName, email, password);
-    	Manager.addCustomer(this);
+    public Customer(String firstName, String lastName, String email, String password, BankData db) {
+        super(firstName, lastName, email, password, db);
+        checkingAccounts = (this.db).readCheckingAccounts(this);
+        savingsAccounts = (this.db).readSavingAccounts(this);
+        securityAccounts = (this.db).readSecurityAccounts(this);
+    	// todo add customer to bankdata not manager |Manager.addCustomer(this);
     }
 
     public void makeCheckingAccount(Currency c) {
     	CheckingAccount acc = new CheckingAccount(c);
     	this.checkingAccounts.add(acc);
-        BankData.addCheckingAccount(this, acc);
+        db.addCheckingAccount(this, acc);
     }
 
     public void makeSavingsAccount(Currency c) {
-    	SavingAccounts acc = new SavingAccounts(c);
+    	SavingsAccount acc = new SavingsAccount(c, db);
     	this.savingsAccounts.add(acc);
-        BankData.addCheckingAccount(this, acc);
+        db.addSavingAccount(this, acc);
     }
 	
-	public void makeInvestmentAccount(Currency c) {
-		SecurityAccount acc = new SecurityAccount(c);
+	public void makeSecurityAccount(Currency c) {
+		SecurityAccount acc = new SecurityAccount(c, db);
 		this.securityAccounts.add(acc);
-        BankData.addCheckingAccount(this, acc);
+        db.addSecurityAccount(this, acc);
 	}  	
 
     public List<CheckingAccount> getCheckingAccounts() {
@@ -37,7 +40,7 @@ public class Customer extends User {
     }
 
     public List<SavingsAccount> getSavingAccounts() {
-        return this.savingAccounts;   
+        return this.savingsAccounts;
     }
     
     public List<SecurityAccount> getStockAccounts() {

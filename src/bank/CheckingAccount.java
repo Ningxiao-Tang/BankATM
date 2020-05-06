@@ -8,12 +8,12 @@ public class CheckingAccount extends AccountType {
 	public static double transactionFee; // set by bank manager
 
 	
-	public CheckingAccount(Currency c) {
-		super(c);
+	public CheckingAccount(Currency c, Database.BankData db) {
+		super(c, db);
 	}
 
-	public int getBalanceInLocalCurrency() {
-		this.balance.getValue();
+	public double getBalanceInLocalCurrency() {
+		return this.balance.getValue();
 	}
 	
 }

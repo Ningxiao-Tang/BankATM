@@ -1,8 +1,17 @@
 // class which connects to our MySQL database
 package Database;
 
+import bank.AccountType;
+import bank.CheckingAccount;
+import bank.Currency;
+import bank.Customer;
+import bank.Loan;
+import bank.SavingsAccount;
+import bank.SecurityAccount;
 import bank.SecurityAccount;
 import bank.Stock;
+import bank.Stock;
+import bank.Transaction;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -263,7 +272,7 @@ public class BankData {
         catch(Exception e){ System.out.println(e);}
         return list;
     }
-    
+
     // returns list of transactions (Bank Manager Daily Digest)
     public List<Transaction> readTransactions(){
         // TODO fix according to table and object constructor

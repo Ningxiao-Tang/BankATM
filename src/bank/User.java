@@ -9,12 +9,14 @@ public class User {
 	protected String lastName;
 	protected String email;
 	protected String password;
+	protected Database.BankData db;
 
-	public User(String firstName, String lastName, String email, String password) {
+	public User(String firstName, String lastName, String email, String password, Database.BankData db) {
 		this.firstName = firstName;
 		this.lastName = lastName;
     	this.password = password;
     	this.email = email;
+    	this.db = db;
 	}
 
 	/* Getters of customer attributes */
