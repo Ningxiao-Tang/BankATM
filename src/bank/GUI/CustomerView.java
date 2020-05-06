@@ -167,7 +167,7 @@ public class CustomerView extends JFrame {
         setAccountButtonsActive(true);
 
     }
-    /*
+    /* Uncomment it when Customer class is working
     private Customer getSelectedCustomer(){
         Customer customer = null;
         int selectedRow = accountTable.getSelectedRow();
@@ -208,6 +208,8 @@ public class CustomerView extends JFrame {
     }
 
     private void createAccBtnActionPerformed() {
+        //Customer customer = this.getSelectedCustomer();
+        //CreateAccountMenu menu = new CreateAccountMenu(this,true,customer);
         CreateAccountMenu menu = new CreateAccountMenu(this,true);
         menu.setVisible(true);
         //TODO: add created account to account table
