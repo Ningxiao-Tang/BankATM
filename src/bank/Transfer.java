@@ -17,10 +17,10 @@ public class Transfer extends Transaction {
 
 		double valToTransfer = this.amt.getValue();
 		CurrencyType toAccountType = this.to.getBalance().getType();
-		CurrencyType fromAccountType = this.from.getBalance().getType();
+		CurrencyType fromAccountType = this.account.getBalance().getType();
 
-		this.from.getBalance().subtract(this.amount.convert(fromAccountType));
-		this.to.getBalance().add(this.amount.convert(toAccountType));
+		this.account.getBalance().subtract(this.amt.convert(fromAccountType));
+		this.to.getBalance().add(this.amt.convert(toAccountType));
 	}
 	
 }

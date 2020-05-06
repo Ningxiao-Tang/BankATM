@@ -8,14 +8,16 @@ public class SecurityAccount extends AccountType {
 
 	private Currency realizedProfits;
 	private Currency unrealizedProfits;
-	private List<Stock> boughtStocks = BankData.readStocksFor(this);
+	private BankData db;
+	private List<Stock> boughtStocks;
 	
-	public SecurityAccount(Currency c) {
+	public SecurityAccount(Currency c, BankData db) {
 		super(c);
+		boughtStocks = db.readStocksFor(this);
 	}
 
 	public List<Stock> viewStockOptions() {
-		return BankData.readStocks();
+		return db.readStocks();
 	}
 
 	public void buyStock(Stock stock) {
