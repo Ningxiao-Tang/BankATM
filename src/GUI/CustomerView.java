@@ -1,4 +1,5 @@
-/* CustomerView is the view of a logged in customer */
+/** CustomerView is the view of a logged in customer
+ * */
 
 package GUI;
 

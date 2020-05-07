@@ -1,4 +1,6 @@
-/* The view for manager to edit stock attributes */
+/**
+ *  The view for manager to edit stock attributes
+ *  */
 package GUI;
 
 import javax.swing.*;

@@ -1,4 +1,6 @@
-/* The view for customer to withdraw from the selected account */
+/**
+ *  The view for customer to withdraw from the selected account
+ *  */
 
 package GUI;
 

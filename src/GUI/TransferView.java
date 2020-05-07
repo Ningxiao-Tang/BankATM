@@ -1,4 +1,5 @@
-/* View for customer to make a transfer from selected account to another account in BankATM system. */
+/**
+ *  View for customer to make a transfer from selected account to another account in BankATM system. */
 
 package GUI;
 

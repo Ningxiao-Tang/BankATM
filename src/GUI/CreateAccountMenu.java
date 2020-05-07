@@ -1,4 +1,6 @@
-/* The view for customer to create an account */
+/**
+ * The view for customer to create an account
+ * */
 package GUI;
 
 import Database.BankData;

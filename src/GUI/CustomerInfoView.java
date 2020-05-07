@@ -1,4 +1,5 @@
-/* The view for manager to check all customers */
+/** The view for manager to check all customers
+ * */
 
 package GUI;
 

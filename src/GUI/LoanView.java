@@ -1,4 +1,6 @@
-/* The view for customer to make a loan */
+/**
+ * The view for customer to make a loan
+ * */
 
 package GUI;
 

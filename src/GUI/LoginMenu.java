@@ -1,4 +1,6 @@
-/* Main menu of BankATM app */
+/**
+ *  Main menu of BankATM app
+ */
 
 package GUI;
 

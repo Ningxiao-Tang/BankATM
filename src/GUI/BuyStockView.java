@@ -1,4 +1,6 @@
-/* The view for customer to buy stocks */
+/**
+ * The view for customer to buy stocks
+ * */
 package GUI;
 
 import javax.swing.*;

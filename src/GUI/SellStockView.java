@@ -1,4 +1,5 @@
-/* SellStockView is a view for customer to sell their stocks */
+/** SellStockView is a view for customer to sell their stocks
+ * */
 
 package GUI;
 

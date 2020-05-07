@@ -1,4 +1,5 @@
-/* View of customer’s transactions */
+/** View of customer’s transactions
+ * */
 
 package GUI;
 

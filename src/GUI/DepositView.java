@@ -1,4 +1,5 @@
-/* The view for customer to make a deposit to the selected account */
+/** The view for customer to make a deposit to the selected account
+ * */
 package GUI;
 
 import Database.BankData;
